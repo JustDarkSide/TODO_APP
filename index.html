@@ -1,11 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TODO APP</title>
-</head>
-<body>
-    <h1>Tutaj widoczny będzie projekt aplikacji TODO APP</h1>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TODO APP</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/css/mainpage.css" />
+	</head>
+	<body>
+		<header>
+			<h1>MyTask</h1>
+			<p>Organize your workflow smarter</p>
+		</header>
+		<main>
+			<div class="wrapper">
+				<div class="search-bar">
+					<input
+						type="text"
+						class="search-bar__input inter-normal"
+						,
+						placeholder="Search for tasks"
+					/>
+				</div>
+				<div class="task-selectors">
+					<div class="task-selectors__box">
+						<div class="task-selector__item">
+							<div class="task-selector__item__button"></div>
+							<p class="task-selector__item__description inter-normal">All</p>
+						</div>
+						<div class="task-selector__item">
+							<div class="task-selector__item__button"></div>
+							<p class="task-selector__item__description inter-normal">
+								Active
+							</p>
+						</div>
+						<div class="task-selector__item">
+							<div class="task-selector__item__button"></div>
+							<p class="task-selector__item__description inter-normal">
+								Completed
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="tasks-list">
+					<div class="tasks-list__element">
+						<p class="tasks-list__element__name inter-normal">Task 1</p>
+					</div>
+					<div class="tasks-list__element">
+						<p class="tasks-list__element__name inter-normal">Task 2</p>
+					</div>
+					<div class="tasks-list__element">
+						<p class="tasks-list__element__name inter-normal">Task 3</p>
+					</div>
+					<div class="tasks-list__element">
+						<p class="tasks-list__element__name inter-normal">Task 4</p>
+					</div>
+					<div class="tasks-list__element">
+						<p class="tasks-list__element__name inter-normal">Task 5</p>
+					</div>
+					<div class="tasks-list__element">
+						<p class="tasks-list__element__name inter-normal">Task 6</p>
+					</div>
+				</div>
+				<div class="task-managment-panel">
+					<div class="task-manager add-task">
+						<img src="/img/plus-square.svg" alt="" />
+					</div>
+					<div class="task-manager remove-task">
+						<img src="/img/minus-square.svg" alt="" />
+					</div>
+					<div class="task-manager edit-task">
+						<img src="/img/edit.svg" alt="" />
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
 </html>
