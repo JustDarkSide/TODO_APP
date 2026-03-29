@@ -4,13 +4,14 @@
 @use "./add-window";
 
 body {
-	background-color: colors.$background-color;
-	display: flex;
-	flex-direction: column;
+	position: relative;
+	touch-action: none;
 	width: 100%;
 	min-height: 100vh;
-	position: relative;
-	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
+	background-color: colors.$background-color;
+	overflow: hidden;
 	// max-height: 100vh;
 }
 
