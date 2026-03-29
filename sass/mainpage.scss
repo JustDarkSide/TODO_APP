@@ -1,14 +1,31 @@
 @use "./colors" as colors;
 @use "./fonts";
 @use "./config";
+@use "./add-window";
 
 body {
 	background-color: colors.$background-color;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	min-height: 100vh;
+	position: relative;
+	overflow-x: hidden;
 	// max-height: 100vh;
 }
+
+.shadow {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgb(0, 0, 0, 0.6);
+	opacity: 0;
+	z-index: -1;
+	transition: opacity 0.3s;
+}
+
 header {
 	margin-bottom: 5rem;
 	h1 {
@@ -18,7 +35,7 @@ header {
 		font-family: "Poppins", sans-serif;
 		font-style: italic;
 		font-weight: 600;
-		font-size: 7.2rem;
+		font-size: 6.5rem;
 		color: colors.$pure-white;
 		text-align: center;
 		letter-spacing: -1.224px;
@@ -38,7 +55,7 @@ header {
 main {
 	display: flex;
 	flex-direction: column;
-	height: calc(100vh - 215px);
+	height: calc(100vh - 205px - 5vh);
 	.wrapper {
 		display: flex;
 		flex-direction: column;
@@ -79,26 +96,48 @@ main {
 				margin-bottom: 0.5rem;
 				width: 100%;
 
-				.task-selector__item:last-child{
-					width: fit-content;
-				}
-
 				.task-selector__item {
-					width: 15%;
+					width: 30%;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
 					justify-content: space-between;
 					&__button {
+						position: relative;
 						width: 100%;
 						padding: 2rem 1rem;
 						display: flex;
 						flex-direction: column;
 						border-radius: 20px;
-						background: colors.$pure-white;
+						background-color: #333;
 						border: 2px solid #7c5cff;
+						transition: background-color 0.3s;
+						&__switch {
+							position: absolute;
+							top: 50%;
+							left: 0;
+							width: 40%;
+							height: 90%;
+							border-radius: 20px;
+							transform: translateY(-50%);
+							background-color: colors.$pure-white;
+							transition:
+								transform 0.5s,
+								background-color 0.3s;
+						}
+						.moved {
+							transform: translateX(150%) translateY(-50%);
+							background-color: rgba(255, 255, 255, 0.3);
+						}
 					}
-					&__description{
+					.active {
+						background-color: colors.$active-button;
+					}
+					.disabled {
+						opacity: 0.4;
+					}
+
+					&__description {
 						width: 100%;
 						font-size: 1.5rem;
 						color: colors.$subtitle;
@@ -117,17 +156,37 @@ main {
 			&__element {
 				display: flex;
 				align-items: center;
+				justify-content: center;
 				min-height: 70px;
+				max-height: 70px;
 				width: 100%;
 				margin-bottom: 2rem;
 				background-color: #fff;
 				border-radius: 15px;
-				background: linear-gradient(90deg, #4b4b8e 0%, #151528 100%);
+				background: colors.$search-gradient;
 				&__name {
 					width: 80%;
+					height: 70px;
 					padding-left: 1.5rem;
 					font-size: 1.5rem;
 					color: colors.$pure-white;
+					line-height: 70px;
+				}
+
+				&__checkbox {
+					width: 20%;
+					height: 70px;
+					display: flex;
+					align-items: center;
+					overflow: hidden;
+					border-radius: 15px;
+					img {
+						border: 2px solid #000;
+						border-radius: 50%;
+						display: block;
+						width: 30px;
+						height: 30px;
+					}
 				}
 			}
 		}

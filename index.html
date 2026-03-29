@@ -30,17 +30,29 @@
 				<div class="task-selectors">
 					<div class="task-selectors__box">
 						<div class="task-selector__item">
-							<div class="task-selector__item__button"></div>
+							<div
+								class="task-selector__item__button task-selector__item__button__all"
+							>
+								<div class="task-selector__item__button__switch"></div>
+							</div>
 							<p class="task-selector__item__description inter-normal">All</p>
 						</div>
 						<div class="task-selector__item">
-							<div class="task-selector__item__button"></div>
+							<div
+								class="task-selector__item__button task-selector__item__button__active"
+							>
+								<div class="task-selector__item__button__switch"></div>
+							</div>
 							<p class="task-selector__item__description inter-normal">
 								Active
 							</p>
 						</div>
 						<div class="task-selector__item">
-							<div class="task-selector__item__button"></div>
+							<div
+								class="task-selector__item__button task-selector__item__button__completed"
+							>
+								<div class="task-selector__item__button__switch"></div>
+							</div>
 							<p class="task-selector__item__description inter-normal">
 								Completed
 							</p>
@@ -50,21 +62,40 @@
 				<div class="tasks-list">
 					<div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 1</p>
+
+						<div class="tasks-list__element__checkbox">
+							<img src="/img/check.svg" alt="" class="checkmark" />
+						</div>
 					</div>
 					<div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 2</p>
+						<div class="tasks-list__element__checkbox">
+							<img src="/img/check.svg" alt="" class="checkmark" />
+						</div>
 					</div>
 					<div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 3</p>
+						<div class="tasks-list__element__checkbox">
+							<img src="/img/check.svg" alt="" class="checkmark" />
+						</div>
 					</div>
 					<div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 4</p>
+						<div class="tasks-list__element__checkbox">
+							<img src="/img/check.svg" alt="" class="checkmark" />
+						</div>
 					</div>
 					<div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 5</p>
+						<div class="tasks-list__element__checkbox">
+							<img src="/img/check.svg" alt="" class="checkmark" />
+						</div>
 					</div>
 					<div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 6</p>
+						<div class="tasks-list__element__checkbox">
+							<img src="/img/check.svg" alt="" class="checkmark" />
+						</div>
 					</div>
 				</div>
 				<div class="task-managment-panel">
@@ -80,5 +111,10 @@
 				</div>
 			</div>
 		</main>
+		<div class="shadow"></div>
+		<div class="add-task__window">
+			
+		</div>
+		<script src="js/buttons-and-switchers.js"></script>
 	</body>
 </html>
