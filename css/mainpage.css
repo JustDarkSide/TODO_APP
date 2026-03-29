@@ -39,7 +39,6 @@ body {
 
 body {
   position: relative;
-  touch-action: none;
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -91,11 +90,13 @@ main {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 205px - 5vh);
+  width: 100%;
 }
 main .wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 main .wrapper .search-bar {
   width: 90%;
