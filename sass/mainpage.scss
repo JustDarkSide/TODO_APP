@@ -4,7 +4,7 @@
 @use "./add-window";
 
 body {
-	position: relative;
+	position: fixed;
 	touch-action: none;
 	width: 100%;
 	min-height: 100vh;
