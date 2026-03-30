@@ -34,11 +34,13 @@
 					<div class="task-selectors__box">
 						<div class="task-selector__item">
 							<div
-								class="task-selector__item__button task-selector__item__button__all"
+								class="task-selector__item__button task-selector__item__button__important"
 							>
 								<div class="task-selector__item__button__switch"></div>
 							</div>
-							<p class="task-selector__item__description inter-normal">All</p>
+							<p class="task-selector__item__description inter-normal">
+								Important
+							</p>
 						</div>
 						<div class="task-selector__item">
 							<div
@@ -63,7 +65,7 @@
 					</div>
 				</div>
 				<div class="tasks-list">
-					<div class="tasks-list__element">
+					<!-- <div class="tasks-list__element">
 						<p class="tasks-list__element__name inter-normal">Task 1</p>
 
 						<div class="tasks-list__element__checkbox">
@@ -99,23 +101,75 @@
 						<div class="tasks-list__element__checkbox">
 							<img src="img/check.svg" alt="" class="checkmark" />
 						</div>
-					</div>
+					</div> -->
 				</div>
+
 				<div class="task-managment-panel">
-					<div class="task-manager add-task">
+					<button class="task-manager add-task">
 						<img src="img/plus-square.svg" alt="Ikona plusa" />
-					</div>
-					<div class="task-manager remove-task">
+					</button>
+					<button class="task-manager remove-task">
 						<img src="img/minus-square.svg" alt="Ikona minusa" />
-					</div>
-					<div class="task-manager edit-task">
+					</button>
+					<button class="task-manager edit-task">
 						<img src="img/edit.svg" alt="Ikona edycji" />
-					</div>
+					</button>
 				</div>
 			</div>
 		</main>
+		<div class="elipse"></div>
 		<div class="shadow"></div>
-		<div class="add-task__window"></div>
+
+		<div class="add-task__window">
+			<div class="new-task">
+				<div class="new-task__title">
+					<input
+						type="text"
+						placeholder="Enter task title"
+						class="new-task__title__input inter-normal"
+					/>
+				</div>
+				<div class="new-task__importance">
+					<p class="new-task__importance__p inter-normal">Mark as Important</p>
+					<div class="new-task__importance__checkbox">
+						<img src="img/check.svg" alt="Ikonka zaznaczenia" />
+					</div>
+				</div>
+				<div class="new-task__deadline">
+					<p class="new-task__deadline__p inter-normal">Choose task deadline:</p>
+					<input type="date">
+				</div>
+
+				<div class="new-task__description">
+					<textarea
+						class="new-task__description__textarea inter-normal"
+						placeholder="Enter Task Description"
+					></textarea>
+				</div>
+				<div class="new-task__buttons">
+					<button
+						class="new-task__buttons__button new-task__buttons__button__cancel"
+					>
+						<p class="button-label inter-normal">Cancel</p>
+					</button>
+					<button
+						class="new-task__buttons__button new-task__buttons__button__add-another"
+					>
+						<p class="button-label inter-normal">Add another</p>
+					</button>
+					<button
+						class="new-task__buttons__button new-task__buttons__button__insert"
+					>
+						<p class="button-label inter-normal">Add</p>
+					</button>
+				</div>
+				<p class="new-task__state inter-normal">
+					State: <span class="result inter-normal">Filling in information</span>
+				</p>
+			</div>
+		</div>
+
+		<script src="JS/task-managment.js"></script>
 		<script src="JS/buttons-and-switchers.js"></script>
 	</body>
 </html>

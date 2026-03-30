@@ -1,4 +1,4 @@
-let allSwitch = document.querySelector(".task-selector__item__button__all");
+let importantSwitch = document.querySelector(".task-selector__item__button__important");
 
 let activeSwitch = document.querySelector(
 	".task-selector__item__button__active",
@@ -6,7 +6,7 @@ let activeSwitch = document.querySelector(
 let completedSwitch = document.querySelector(
 	".task-selector__item__button__completed",
 );
-let allSwitches = [allSwitch, activeSwitch, completedSwitch];
+let allSwitches = [importantSwitch, activeSwitch, completedSwitch];
 
 let addButton = document.querySelector(".task-manager.add-task");
 
@@ -42,7 +42,7 @@ const blockOrUnblock = (allSwitches, currentSwitch) => {
 	}
 };
 
-allSwitch.addEventListener("click", (e) => {
+importantSwitch.addEventListener("click", (e) => {
 	permission = checkAcivationPermission(allSwitches, e.currentTarget);
 	if (permission) {
 		blockOrUnblock(allSwitches, e.currentTarget);

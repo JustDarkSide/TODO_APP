@@ -4,17 +4,145 @@
 
 .add-task__window {
 	position: absolute;
-	width: 80vw;
-	height: 60vh;
+	width: 90vw;
+	height: 80vh;
+	padding: 2rem 1.5rem;
 	top: 50%;
 	left: 100%;
-    transform: translateY(-50%);
+	transform: translateY(-50%);
 	background: colors.$search-gradient;
 	border: none;
 	border-radius: 14px;
 	z-index: 2;
 	transition: transform 0.5s;
+	.new-task {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		&__title {
+			width: 100%;
+			height: 10vh;
+			border: 2px solid colors.$add-window-borders;
+			border-radius: 15px;
+			margin-bottom: 2rem;
+			&__input {
+				width: 100%;
+				height: 100%;
+				padding-left: 1.5rem;
+				background: none;
+				border: none;
+				font-size: 2rem;
+				color: colors.$pure-white;
+			}
+			&__input::placeholder {
+				color: colors.$add-window-borders;
+			}
+		}
+		&__importance {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 2rem;
+			padding: 0 1.5rem;
+			&__p {
+				color: colors.$pure-white;
+				font-size: 1.8rem;
+
+			}
+			&__checkbox {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				border: 2px solid colors.$pitch-black;
+				cursor: pointer;
+				img {
+					display: none;
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+		&__deadline {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 1.5rem;
+			margin-bottom: 2rem;
+			&__p {
+				color: colors.$pure-white;
+				font-size: 1.8rem;
+				padding-right: 1rem;
+			}
+			input[type="date"] {
+				width: 40%;
+			}
+		}
+		&__description {
+			width: 100%;
+			flex: 1;
+			margin-bottom: 2rem;
+			&__textarea {
+				width: 100%;
+				height: 100%;
+				padding: 1.5rem 1.5rem;
+				background: none;
+				border: 2px solid colors.$add-window-borders;
+				border-radius: 15px;
+				font-size: 2rem;
+				resize: none;
+			}
+			&__textarea::placeholder {
+				color: colors.$add-window-borders;
+			}
+		}
+		&__buttons {
+			width: 100%;
+			height: 8vh;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			border-radius: 15px;
+			margin-bottom: 2rem;
+			&__button {
+				display: block;
+				width: 30%;
+				height: 100%;
+				border-radius: 15px;
+				border: 2px solid colors.$add-window-borders;
+				background: none;
+				.button-label {
+					height: 100%;
+					color: colors.$pure-white;
+					font-size: 1.5rem;
+					text-align: center;
+					padding: 0.2rem;
+					align-content: center;
+				}
+			}
+			&__button__cancel {
+				background-color: rgba(207, 64, 64, 0.767);
+			}
+			&__button__add-another {
+				background-color: rgba(156, 158, 154, 0.767);
+			}
+			&__button__insert {
+				background-color: rgb(84, 178, 60);
+			}
+		}
+		&__state {
+			width: 100%;
+			height: 5%;
+			color: colors.$pure-white;
+			font-size: 2rem;
+		}
+	}
 }
 .add-task__window__show {
-	transform: translateX(-112.5%) translateY(-50%);
+	transform: translateX(-105.5%) translateY(-50%);
 }

@@ -1,6 +1,14 @@
 $background-color: #0b0b13;
 $pure-white: #fff;
+$pitch-black: #000;
 $subtitle: #a1a1aa;
 $search-gradient: linear-gradient(90deg, #303059 0%, #6666bf 100%);
 $task-gradient: linear-gradient(90deg, #4b4b8e 0%, #151528 100%);
+$elipse-gradient: linear-gradient(
+	180deg,
+	rgba(50, 50, 94, 0.15) 4.81%,
+	rgba(155, 155, 253, 0.15) 82.69%
+);
 $active-button: #7fbd62;
+$switches-border: #7c5cff;
+$add-window-borders: rgba(255, 255, 255, 0.5);

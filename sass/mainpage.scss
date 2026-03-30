@@ -13,6 +13,17 @@ body {
 	// max-height: 100vh;
 }
 
+.elipse {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 260px; //Intentional view port height usage instead of % or vw
+	height: 200px;
+	border-radius: 50% 50%;
+	transform: translateX(-15%) translateY(-18%);
+	background: colors.$elipse-gradient;
+	z-index: -1;
+}
 .shadow {
 	position: absolute;
 	width: 100%;
@@ -190,6 +201,16 @@ main {
 					}
 				}
 			}
+			&__empty {
+				width: 80%;
+				height: 50%;
+				margin: 0 auto;
+				font-size: 4rem;
+				text-align: center;
+				color: colors.$subtitle;
+				align-content: center;
+				font-style: italic;
+			}
 		}
 		.task-managment-panel {
 			width: 90%;
@@ -200,8 +221,11 @@ main {
 			align-items: center;
 			justify-content: space-between;
 			.task-manager {
+				display: block;
 				width: 45px;
 				height: 45px;
+				background: none;
+				border: none;
 				cursor: pointer;
 				img {
 					display: block;
