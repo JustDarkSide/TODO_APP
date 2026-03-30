@@ -15,8 +15,10 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  overflow: hidden;
+html, body {
+  position: relative;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .add-task__window {
@@ -39,7 +41,6 @@ body {
 
 body {
   position: relative;
-  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
