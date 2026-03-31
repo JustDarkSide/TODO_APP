@@ -94,7 +94,6 @@ const isDateValid = () => {
 	const selectedDate = dateInput.value;
 	if (selectedDate < localISODate && selectedDate !== "") {
 		alert("Error: You cannot select a date in the past.");
-		dateInput.style.backgroundColor = "tomato";
 		dateInput.value = localISODate;
 		isValid = false;
 	} else {
