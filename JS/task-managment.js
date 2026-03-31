@@ -79,14 +79,28 @@ const insertTask = () => {
 };
 
 const setDate = () => {
-	let date = new Date();
-	let year = date.getFullYear();
-	let month = (date.getMonth() + 1).toString().padStart(2, "0");
-	let day = date.getDate().toString().padStart(2, "0");
+	const now = new Date();
+	const offset = now.getTimezoneOffset() * 60000;
+	const localISODate = new Date(now - offset).toISOString().split("T")[0];
+	dateInput.value = localISODate;
+	dateInput.setAttribute("min", localISODate);
+};
 
-	let fullDate = `${year}-${month}-${day}`;
-	dateInput.value = fullDate;
-	dateInput.setAttribute("min", fullDate);
+const isDateValid = () => {
+	let isValid = true;
+	const now = new Date();
+	const offset = now.getTimezoneOffset() * 60000;
+	const localISODate = new Date(now - offset).toISOString().split("T")[0];
+	const selectedDate = dateInput.value;
+	if (selectedDate < localISODate && selectedDate !== "") {
+		alert("Error: You cannot select a date in the past.");
+		dateInput.style.backgroundColor = "tomato";
+		dateInput.value = localISODate;
+		isValid = false;
+	} else {
+		dateInput.style.backgroundColor = "#121547";
+	}
+	return isValid;
 };
 
 const clearInputFields = () => {
@@ -103,6 +117,8 @@ const clearInputFields = () => {
 	taskImportance.classList.remove("checked");
 	newTaskCheckbox.firstElementChild.style.display = "none";
 	setDate();
+	taskAdditionState.textContent = "Filling in information";
+	taskAdditionState.style.color = "#fff";
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -131,8 +147,13 @@ cancelTaskAdditionButton.addEventListener("click", () => {
 
 addAnotherTaskButton.addEventListener("click", () => {
 	clearInputFields();
+	cancelTaskAdditionButton.firstElementChild.textContent = "Cancel";
 });
 
 shadow.addEventListener("click", () => {
 	clearInputFields();
+});
+
+dateInput.addEventListener("change", () => {
+	isDateValid();
 });
