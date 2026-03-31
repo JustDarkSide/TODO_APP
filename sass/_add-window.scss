@@ -6,12 +6,13 @@
 	position: absolute;
 	width: 90vw;
 	height: 80vh;
-	padding: 2rem 1.5rem;
+	padding: 1rem 1rem;
 	top: 50%;
-	left: 100%;
+	left: 108%;
 	transform: translateY(-50%);
 	background: colors.$search-gradient;
-	border: none;
+	border: 2px solid colors.$add-window-borders;
+	box-shadow: 0px 0px 10px 3px colors.$glow;
 	border-radius: 14px;
 	z-index: 2;
 	transition: transform 0.5s;
@@ -22,64 +23,100 @@
 		height: 100%;
 		&__title {
 			width: 100%;
-			height: 10vh;
-			border: 2px solid colors.$add-window-borders;
-			border-radius: 15px;
-			margin-bottom: 2rem;
+			margin-bottom: 1rem;
+
+			&__label {
+				display: block;
+				padding: 0.5rem 0;
+				padding-left: 0.5rem;
+				margin-bottom: 0.3rem;
+				font-size: 1.5rem;
+				color: colors.$pure-white;
+			}
 			&__input {
 				width: 100%;
-				height: 100%;
+				padding: 2rem 0;
 				padding-left: 1.5rem;
-				background: none;
-				border: none;
+				border-radius: 15px;
+				border: 2px solid colors.$add-window-borders;
 				font-size: 2rem;
+				background-color: colors.$add-window-input-background;
 				color: colors.$pure-white;
+				overflow: hidden;
 			}
 			&__input::placeholder {
 				color: colors.$add-window-borders;
 			}
 		}
-		&__importance {
+		&__metadata {
 			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			margin-bottom: 2rem;
-			padding: 0 1.5rem;
-			&__p {
-				color: colors.$pure-white;
-				font-size: 1.8rem;
-
-			}
-			&__checkbox {
-				width: 30px;
-				height: 30px;
-				border-radius: 50%;
-				border: 2px solid colors.$pitch-black;
-				cursor: pointer;
-				img {
-					display: none;
-					width: 100%;
-					height: 100%;
+			padding: 1rem 0;
+			margin-bottom: 1rem;
+			background: transparent;
+			border: 2px solid colors.$add-window-borders;
+			border-radius: 15px;
+			&__importance {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 2rem;
+				padding: 0 1.5rem;
+				&__p {
+					color: colors.$pure-white;
+					font-size: 1.6rem;
+				}
+				&__checkbox {
+					width: 30px;
+					height: 30px;
+					border-radius: 50%;
+					border: 2px solid colors.$pitch-black;
+					cursor: pointer;
+					img {
+						display: none;
+						width: 100%;
+						height: 100%;
+					}
 				}
 			}
-		}
-		&__deadline {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			align-items: center;
-			padding: 0 1.5rem;
-			margin-bottom: 2rem;
-			&__p {
-				color: colors.$pure-white;
-				font-size: 1.8rem;
-				padding-right: 1rem;
-			}
-			input[type="date"] {
-				width: 40%;
+			&__deadline {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0 1.5rem;
+				margin-bottom: 2rem;
+				&__p {
+					color: colors.$pure-white;
+					font-size: 1.6rem;
+					align-content: center;
+				}
+				input[type="date"] {
+					position: relative;
+					display: block;
+					width: 40%;
+					height: 100%;
+					padding: 1.5rem 0.5rem;
+					text-align: center;
+					color: colors.$pure-white;
+					background-color: colors.$add-window-input-background;
+					border-radius: 15px;
+					border: none;
+					overflow: hidden;
+				}
+				input[type="date"]::-webkit-calendar-picker-indicator {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					width: auto;
+					height: auto;
+					background: transparent;
+					color: transparent;
+				}
 			}
 		}
 		&__description {
@@ -90,10 +127,11 @@
 				width: 100%;
 				height: 100%;
 				padding: 1.5rem 1.5rem;
-				background: none;
+				background: colors.$add-window-input-background;
 				border: 2px solid colors.$add-window-borders;
 				border-radius: 15px;
 				font-size: 2rem;
+				color: colors.$pure-white;
 				resize: none;
 			}
 			&__textarea::placeholder {
@@ -102,19 +140,20 @@
 		}
 		&__buttons {
 			width: 100%;
-			height: 8vh;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
 			border-radius: 15px;
 			margin-bottom: 2rem;
+			cursor: pointer;
 			&__button {
 				display: block;
 				width: 30%;
-				height: 100%;
+				padding: 1.5rem 0;
 				border-radius: 15px;
-				border: 2px solid colors.$add-window-borders;
+				border: none;
+				box-shadow: 0px 0px 6px colors.$glow;
 				background: none;
 				.button-label {
 					height: 100%;
@@ -126,23 +165,40 @@
 				}
 			}
 			&__button__cancel {
-				background-color: rgba(207, 64, 64, 0.767);
+				background-color: #e14b3e;
 			}
-			&__button__add-another {
-				background-color: rgba(156, 158, 154, 0.767);
+			&__button__add-next {
+				background-color: #adadad;
 			}
 			&__button__insert {
-				background-color: rgb(84, 178, 60);
+				background-color: #73aa6e;
 			}
 		}
 		&__state {
 			width: 100%;
-			height: 5%;
+			padding: 2rem 0;
+			padding-left: 0.5rem;
 			color: colors.$pure-white;
-			font-size: 2rem;
+			font-size: 1.7rem;
+			align-content: center;
 		}
 	}
 }
 .add-task__window__show {
-	transform: translateX(-105.5%) translateY(-50%);
+	transform: translateX(-115%) translateY(-50%);
+}
+
+@media screen and (max-height: 568px) {
+	.add-task__window {
+		height: 95vh;
+		.new-task {
+			&__metadata {
+				&__deadline {
+					input[type="date"] {
+						width: 50%;
+					}
+				}
+			}
+		}
+	}
 }

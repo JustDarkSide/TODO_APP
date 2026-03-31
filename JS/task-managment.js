@@ -1,16 +1,21 @@
+import { hideAddTaskWindow, shadow } from "./buttons-and-switchers.js";
+
 let tasksListBox = document.querySelector(".tasks-list");
 let tasks = document.querySelectorAll(".tasks-list__element");
-let newTaskCheckbox = document.querySelector(".new-task__importance__checkbox");
+let newTaskCheckbox = document.querySelector(
+	".new-task__metadata__importance__checkbox",
+);
 let addNewTaskButton = document.querySelector(
 	".new-task__buttons__button.new-task__buttons__button__insert",
 );
 let addAnotherTaskButton = document.querySelector(
-	".new-task__buttons__button.new-task__buttons__button__add-another",
+	".new-task__buttons__button.new-task__buttons__button__add-next",
 );
 let cancelTaskAdditionButton = document.querySelector(
-	"new-task__buttons__button new-task__buttons__button__cancel",
+	".new-task__buttons__button.new-task__buttons__button__cancel",
 );
 let taskAdditionState = document.querySelector(".new-task__state .result");
+let dateInput = document.querySelector(".new-task__metadata__deadline input");
 
 const taskListIsEmpty = () => {
 	if (tasks.length == 0) {
@@ -24,7 +29,7 @@ const taskListIsEmpty = () => {
 const insertTask = () => {
 	let taskTitle = document.querySelector(".new-task .new-task__title__input");
 	let taskImportance = document.querySelector(
-		".new-task .new-task__importance__checkbox",
+		".new-task .new-task__metadata .new-task__metadata__importance__checkbox",
 	);
 	let taskDescription = document.querySelector(
 		".new-task .new-task__description__textarea",
@@ -67,13 +72,42 @@ const insertTask = () => {
 			tasksListBox.removeChild(tasksListBox.firstElementChild);
 		}
 		tasksListBox.appendChild(taskDiv);
-		taskAdditionState.textContent = "New task added successfully";
+		taskAdditionState.textContent = "New task has been created successfully";
 		taskAdditionState.style.color = "lime";
+		cancelTaskAdditionButton.firstElementChild.textContent = "Leave";
 	}
+};
+
+const setDate = () => {
+	let date = new Date();
+	let year = date.getFullYear();
+	let month = (date.getMonth() + 1).toString().padStart(2, "0");
+	let day = date.getDate().toString().padStart(2, "0");
+
+	let fullDate = `${year}-${month}-${day}`;
+	dateInput.value = fullDate;
+	dateInput.setAttribute("min", fullDate);
+};
+
+const clearInputFields = () => {
+	let taskTitle = document.querySelector(".new-task .new-task__title__input");
+	let taskDescription = document.querySelector(
+		".new-task .new-task__description__textarea",
+	);
+	let taskImportance = document.querySelector(
+		".new-task .new-task__metadata__importance__checkbox",
+	);
+
+	taskTitle.value = "";
+	taskDescription.value = "";
+	taskImportance.classList.remove("checked");
+	newTaskCheckbox.firstElementChild.style.display = "none";
+	setDate();
 };
 
 document.addEventListener("DOMContentLoaded", () => {
 	taskListIsEmpty();
+	setDate();
 });
 
 newTaskCheckbox.addEventListener("click", () => {
@@ -87,4 +121,18 @@ newTaskCheckbox.addEventListener("click", () => {
 
 addNewTaskButton.addEventListener("click", () => {
 	insertTask();
+});
+
+cancelTaskAdditionButton.addEventListener("click", () => {
+	hideAddTaskWindow();
+	cancelTaskAdditionButton.firstElementChild.textContent = "Cancel";
+	clearInputFields();
+});
+
+addAnotherTaskButton.addEventListener("click", () => {
+	clearInputFields();
+});
+
+shadow.addEventListener("click", () => {
+	clearInputFields();
 });

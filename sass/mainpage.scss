@@ -10,6 +10,7 @@ body {
 	flex-direction: column;
 	background-color: colors.$background-color;
 	overflow: hidden;
+	touch-action: none;
 	// max-height: 100vh;
 }
 

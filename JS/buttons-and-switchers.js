@@ -1,4 +1,6 @@
-let importantSwitch = document.querySelector(".task-selector__item__button__important");
+let importantSwitch = document.querySelector(
+	".task-selector__item__button__important",
+);
 
 let activeSwitch = document.querySelector(
 	".task-selector__item__button__active",
@@ -12,7 +14,7 @@ let addButton = document.querySelector(".task-manager.add-task");
 
 let addTaskWindow = document.querySelector(".add-task__window");
 
-let shadow = document.querySelector(".shadow");
+export let shadow = document.querySelector(".shadow");
 
 const handleSwitch = (currentSwitch) => {
 	currentSwitch.classList.toggle("active");
@@ -41,9 +43,23 @@ const blockOrUnblock = (allSwitches, currentSwitch) => {
 		});
 	}
 };
+const showAddTaskWindow = () => {
+	addTaskWindow.classList.add("add-task__window__show");
+	shadow.style.zIndex = 1;
+	shadow.style.opacity = 1;
+};
+export const hideAddTaskWindow = () => {
+	if (addTaskWindow.classList.contains("add-task__window__show")) {
+		shadow.style.opacity = 0;
+		addTaskWindow.classList.remove("add-task__window__show");
+		setTimeout(() => {
+			shadow.style.zIndex = -1;
+		}, 300);
+	}
+};
 
 importantSwitch.addEventListener("click", (e) => {
-	permission = checkAcivationPermission(allSwitches, e.currentTarget);
+	let permission = checkAcivationPermission(allSwitches, e.currentTarget);
 	if (permission) {
 		blockOrUnblock(allSwitches, e.currentTarget);
 		handleSwitch(e.currentTarget);
@@ -51,7 +67,7 @@ importantSwitch.addEventListener("click", (e) => {
 });
 
 activeSwitch.addEventListener("click", (e) => {
-	permission = checkAcivationPermission(allSwitches, e.currentTarget);
+	let permission = checkAcivationPermission(allSwitches, e.currentTarget);
 	if (permission) {
 		blockOrUnblock(allSwitches, e.currentTarget);
 		handleSwitch(e.currentTarget);
@@ -59,7 +75,7 @@ activeSwitch.addEventListener("click", (e) => {
 });
 
 completedSwitch.addEventListener("click", (e) => {
-	permission = checkAcivationPermission(allSwitches, e.currentTarget);
+	let permission = checkAcivationPermission(allSwitches, e.currentTarget);
 	if (permission) {
 		blockOrUnblock(allSwitches, e.currentTarget);
 		handleSwitch(e.currentTarget);
@@ -67,17 +83,9 @@ completedSwitch.addEventListener("click", (e) => {
 });
 
 addButton.addEventListener("click", () => {
-	addTaskWindow.classList.toggle("add-task__window__show");
-	shadow.style.zIndex = 1;
-	shadow.style.opacity = 1;
+	showAddTaskWindow();
 });
 
 shadow.addEventListener("click", () => {
-	if (addTaskWindow.classList.contains("add-task__window__show")) {
-		shadow.style.opacity = 0;
-        addTaskWindow.classList.remove("add-task__window__show")
-		setTimeout(() => {
-			shadow.style.zIndex = -1;
-		}, 300);
-	}
+	hideAddTaskWindow();
 });
