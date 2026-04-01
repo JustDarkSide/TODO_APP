@@ -146,6 +146,7 @@ html, body {
   width: 100%;
   flex: 1;
   margin-bottom: 2rem;
+  touch-action: auto;
 }
 .add-task__window .new-task__description__textarea {
   width: 100%;
@@ -157,6 +158,7 @@ html, body {
   font-size: 2rem;
   color: #fff;
   resize: none;
+  touch-action: auto;
 }
 .add-task__window .new-task__description__textarea::-moz-placeholder {
   color: rgba(255, 255, 255, 0.5);
@@ -426,14 +428,23 @@ main .wrapper .tasks-list__element__checkbox {
   height: 70px;
   align-content: center;
   overflow: hidden;
-  border-radius: 15px;
 }
-main .wrapper .tasks-list__element__checkbox img {
-  display: block;
+main .wrapper .tasks-list__element__checkbox__icon-box {
   width: 25px;
   height: 25px;
-  border: 2px solid #000;
   border-radius: 50%;
+  border: 2px solid #fff;
+  overflow: hidden;
+}
+main .wrapper .tasks-list__element__checkbox__icon-box img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+}
+main .wrapper .tasks-list__element__checkbox__icon-box .checked {
+  opacity: 1;
 }
 main .wrapper .tasks-list__empty {
   width: 80%;
@@ -445,16 +456,20 @@ main .wrapper .tasks-list__empty {
   align-content: center;
   font-style: italic;
 }
-main .wrapper .task-managment-panel {
+main .wrapper .task-managment-panels {
   width: 90%;
   margin: 0 auto;
   height: 10vh;
+  align-content: center;
+}
+main .wrapper .task-managment-panels .task-managment-panel {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-main .wrapper .task-managment-panel .task-manager {
+main .wrapper .task-managment-panels .task-managment-panel .task-manager {
   display: block;
   width: 45px;
   height: 45px;
@@ -462,8 +477,14 @@ main .wrapper .task-managment-panel .task-manager {
   border: none;
   cursor: pointer;
 }
-main .wrapper .task-managment-panel .task-manager img {
+main .wrapper .task-managment-panels .task-managment-panel .task-manager img {
   display: block;
   width: 100%;
   height: 100%;
+}
+main .wrapper .task-managment-panels .task-managment-panel.task-managment-panel__checking {
+  display: none;
+}
+main .wrapper .task-managment-panels .task-managment-panel.task-managment-panel__removing {
+  display: none;
 }/*# sourceMappingURL=mainpage.css.map */

@@ -12,7 +12,22 @@ let allSwitches = [importantSwitch, activeSwitch, completedSwitch];
 
 let addButton = document.querySelector(".task-manager.add-task");
 
+let checkButton = document.querySelector(".task-manager.mark-as-completed");
+
+let removeButton = document.querySelector(".task-manager.remove-task");
+
 let addTaskWindow = document.querySelector(".add-task__window");
+
+export let taskManagmentPanelMain = document.querySelector(
+	".task-managment-panel__main",
+);
+export let taskManagmentPanelCheck = document.querySelector(
+	".task-managment-panel__checking",
+);
+
+export let taskManagmentPanelRemoval = document.querySelector(
+	".task-managment-panel__removing",
+);
 
 export let shadow = document.querySelector(".shadow");
 
@@ -58,6 +73,24 @@ export const hideAddTaskWindow = () => {
 	}
 };
 
+const showCheckboxes = () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+	tasks.forEach((element) => {
+		let outerDiv = document.createElement("div");
+		let innerDiv = document.createElement("div");
+		let img = document.createElement("img");
+		outerDiv.classList.add("tasks-list__element__checkbox");
+		innerDiv.classList.add("tasks-list__element__checkbox__icon-box");
+		img.classList.add("checkmark");
+		img.setAttribute("src", "img/check.svg");
+		img.setAttribute("alt", "");
+
+		innerDiv.appendChild(img);
+		outerDiv.appendChild(innerDiv);
+		element.appendChild(outerDiv);
+	});
+};
+
 importantSwitch.addEventListener("click", (e) => {
 	let permission = checkAcivationPermission(allSwitches, e.currentTarget);
 	if (permission) {
@@ -88,4 +121,16 @@ addButton.addEventListener("click", () => {
 
 shadow.addEventListener("click", () => {
 	hideAddTaskWindow();
+});
+
+removeButton.addEventListener("click", () => {
+	showCheckboxes();
+	taskManagmentPanelMain.style.display = "none";
+	taskManagmentPanelRemoval.style.display = "flex";
+});
+
+checkButton.addEventListener("click", () => {
+	showCheckboxes();
+	taskManagmentPanelMain.style.display = "none";
+	taskManagmentPanelCheck.style.display = "flex";
 });

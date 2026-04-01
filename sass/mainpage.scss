@@ -211,13 +211,22 @@ main {
 					height: 70px;
 					align-content: center;
 					overflow: hidden;
-					border-radius: 15px;
-					img {
-						display: block;
+					&__icon-box {
 						width: 25px;
 						height: 25px;
-						border: 2px solid #000;
 						border-radius: 50%;
+						border: 2px solid colors.$pure-white;
+						overflow: hidden;
+						img {
+							display: block;
+							width: 100%;
+							height: 100%;
+							overflow: hidden;
+							opacity: 0;
+						}
+						.checked {
+							opacity: 1;
+						}
 					}
 				}
 			}
@@ -232,26 +241,36 @@ main {
 				font-style: italic;
 			}
 		}
-		.task-managment-panel {
+		.task-managment-panels {
 			width: 90%;
 			margin: 0 auto;
 			height: 10vh;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			.task-manager {
-				display: block;
-				width: 45px;
-				height: 45px;
-				background: none;
-				border: none;
-				cursor: pointer;
-				img {
+			align-content: center;
+			.task-managment-panel {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				.task-manager {
 					display: block;
-					width: 100%;
-					height: 100%;
+					width: 45px;
+					height: 45px;
+					background: none;
+					border: none;
+					cursor: pointer;
+					img {
+						display: block;
+						width: 100%;
+						height: 100%;
+					}
 				}
+			}
+			.task-managment-panel.task-managment-panel__checking {
+				display: none;
+			}
+			.task-managment-panel.task-managment-panel__removing {
+				display: none;
 			}
 		}
 	}

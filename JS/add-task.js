@@ -99,8 +99,11 @@ const insertTask = (
 			tasksListBox.removeChild(tasksListBox.firstElementChild);
 		}
 		tasksListBox.appendChild(taskDiv);
-		taskAdditionState.textContent = "New task has been created successfully";
-		taskAdditionState.style.color = "lime";
+
+		if (toLocalStorage) {
+			taskAdditionState.textContent = "New task has been created successfully";
+			taskAdditionState.style.color = "lime";
+		}
 	}
 };
 
@@ -122,8 +125,6 @@ const isDateValid = () => {
 		alert("Error: You cannot select a date in the past.");
 		dateInput.value = localISODate;
 		isValid = false;
-	} else {
-		dateInput.style.backgroundColor = "#121547";
 	}
 	return isValid;
 };
