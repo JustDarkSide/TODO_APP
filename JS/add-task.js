@@ -1,4 +1,17 @@
 import { hideAddTaskWindow, shadow } from "./buttons-and-switchers.js";
+import {
+	createTaskObject,
+	returnTasksFromStorage,
+} from "./local-storage-manager.js";
+
+let taskTitle = document.querySelector(".new-task .new-task__title__input");
+let taskDescription = document.querySelector(
+	".new-task .new-task__description__textarea",
+);
+let dateInput = document.querySelector(".new-task__metadata__deadline input");
+let taskImportance = document.querySelector(
+	".new-task .new-task__metadata .new-task__metadata__importance__checkbox",
+);
 
 let tasksListBox = document.querySelector(".tasks-list");
 let tasks = document.querySelectorAll(".tasks-list__element");
@@ -8,14 +21,11 @@ let newTaskCheckbox = document.querySelector(
 let addNewTaskButton = document.querySelector(
 	".new-task__buttons__button.new-task__buttons__button__insert",
 );
-let addAnotherTaskButton = document.querySelector(
-	".new-task__buttons__button.new-task__buttons__button__add-next",
-);
+
 let cancelTaskAdditionButton = document.querySelector(
-	".new-task__buttons__button.new-task__buttons__button__cancel",
+	".new-task__buttons__button.new-task__buttons__button__close",
 );
 let taskAdditionState = document.querySelector(".new-task__state .result");
-let dateInput = document.querySelector(".new-task__metadata__deadline input");
 
 const taskListIsEmpty = () => {
 	if (tasks.length == 0) {
@@ -26,46 +36,63 @@ const taskListIsEmpty = () => {
 		tasksListBox.appendChild(p);
 	}
 };
-const insertTask = () => {
-	let taskTitle = document.querySelector(".new-task .new-task__title__input");
-	let taskImportance = document.querySelector(
-		".new-task .new-task__metadata .new-task__metadata__importance__checkbox",
-	);
-	let taskDescription = document.querySelector(
-		".new-task .new-task__description__textarea",
-	);
+const insertTask = (
+	taskTitle,
+	taskDescription,
+	date,
+	important,
+	toLocalStorage = true,
+) => {
 	let tasks = document.querySelectorAll(".tasks-list__element");
-	//Getting input values
-	taskTitle = taskTitle.value;
-	let important = taskImportance.classList.contains("checked");
-	taskDescription = taskDescription.value;
-
 	if (taskTitle.length == 0) {
 		taskAdditionState.textContent = "Fill in task title";
 		taskAdditionState.style.color = "tomato";
 	} else {
-		//Task elmement creation
+		//-------------------------Adding task to localStorage------------------------
+		if (toLocalStorage) {
+			createTaskObject(taskTitle, taskDescription, date, important);
+		}
+
+		//-------------------------Task elmement creation-----------------------------
 		let taskDiv = document.createElement("div");
-		let checkboxDiv = document.createElement("div");
+		let statusDiv = document.createElement("div");
+		let importanceDiv = null;
 		let p = document.createElement("p");
-		let img = document.createElement("img");
+		let imgStatus = document.createElement("img");
 
 		taskDiv.classList.add("tasks-list__element");
-		checkboxDiv.classList.add("tasks-list__element__checkbox");
+		statusDiv.classList.add("tasks-list__element__status");
 
 		p.textContent = taskTitle;
 		p.classList.add("tasks-list__element__name");
 		p.classList.add("inter-normal");
 		p.textContent = taskTitle;
 
-		img.classList.add("checkmark");
-		img.setAttribute("src", "img/check.svg");
-		img.setAttribute("alt", "Ikonka zatwierdzenia");
+		imgStatus.classList.add("tasks-list__element__status__icon");
+		imgStatus.setAttribute("src", "img/active-task.svg");
+		imgStatus.setAttribute("alt", "Ikonka statusu");
 
 		taskDiv.appendChild(p);
-		checkboxDiv.appendChild(img);
-		taskDiv.appendChild(checkboxDiv);
+		statusDiv.appendChild(imgStatus);
 
+		if (important) {
+			importanceDiv = document.createElement("div");
+			let imgImportance = document.createElement("img");
+
+			importanceDiv.classList.add("tasks-list__element__importance");
+			imgImportance.classList.add("tasks-list__element__importance__icon");
+			imgImportance.setAttribute("src", "img/alert-circle.svg");
+			imgImportance.setAttribute(
+				"alt",
+				"Ikonka oznaczająca, że zadanie jest ważne",
+			);
+			importanceDiv.appendChild(imgImportance);
+		}
+
+		if (importanceDiv) {
+			taskDiv.appendChild(importanceDiv);
+		}
+		taskDiv.appendChild(statusDiv);
 		//Final element creation step
 
 		if (tasks.length == 0) {
@@ -74,7 +101,6 @@ const insertTask = () => {
 		tasksListBox.appendChild(taskDiv);
 		taskAdditionState.textContent = "New task has been created successfully";
 		taskAdditionState.style.color = "lime";
-		cancelTaskAdditionButton.firstElementChild.textContent = "Leave";
 	}
 };
 
@@ -116,9 +142,29 @@ const clearInputFields = () => {
 	taskImportance.classList.remove("checked");
 	newTaskCheckbox.firstElementChild.style.display = "none";
 	setDate();
-	taskAdditionState.textContent = "Filling in information";
-	taskAdditionState.style.color = "#fff";
 };
+
+const setStateAsFillingInfo = () => {
+	if (taskAdditionState.textContent != "Filling in information") {
+		taskAdditionState.textContent = "Filling in information";
+		taskAdditionState.style.color = "#fff";
+	}
+};
+
+window.addEventListener("load", () => {
+	let tasks = returnTasksFromStorage();
+	if (tasks != null) {
+		for (const task of tasks) {
+			insertTask(
+				task.title,
+				task.description,
+				task.deadline,
+				task.importance,
+				false,
+			);
+		}
+	}
+});
 
 document.addEventListener("DOMContentLoaded", () => {
 	taskListIsEmpty();
@@ -132,27 +178,42 @@ newTaskCheckbox.addEventListener("click", () => {
 	} else {
 		newTaskCheckbox.firstElementChild.style.display = "none";
 	}
+	setStateAsFillingInfo();
 });
 
 addNewTaskButton.addEventListener("click", () => {
-	insertTask();
+	let taskTitleValue = taskTitle.value;
+	let taskDescriptionValue = taskDescription.value;
+	let date = dateInput.value;
+	let important = taskImportance.classList.contains("checked");
+	insertTask(taskTitleValue, taskDescriptionValue, date, important);
+	clearInputFields();
 });
 
 cancelTaskAdditionButton.addEventListener("click", () => {
 	hideAddTaskWindow();
 	cancelTaskAdditionButton.firstElementChild.textContent = "Cancel";
 	clearInputFields();
-});
-
-addAnotherTaskButton.addEventListener("click", () => {
-	clearInputFields();
-	cancelTaskAdditionButton.firstElementChild.textContent = "Cancel";
+	setStateAsFillingInfo();
 });
 
 shadow.addEventListener("click", () => {
 	clearInputFields();
+	setStateAsFillingInfo();
 });
 
 dateInput.addEventListener("change", () => {
+	setStateAsFillingInfo();
 	isDateValid();
+});
+dateInput.addEventListener("focus", () => {
+	setStateAsFillingInfo();
+});
+
+taskDescription.addEventListener("focus", () => {
+	setStateAsFillingInfo();
+});
+
+taskTitle.addEventListener("focus", () => {
+	setStateAsFillingInfo();
 });

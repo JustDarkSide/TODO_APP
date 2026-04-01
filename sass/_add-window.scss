@@ -142,7 +142,7 @@
 			width: 100%;
 			display: flex;
 			flex-direction: row;
-			justify-content: space-between;
+			justify-content: space-around;
 			align-items: center;
 			border-radius: 15px;
 			margin-bottom: 2rem;
@@ -164,7 +164,7 @@
 					align-content: center;
 				}
 			}
-			&__button__cancel {
+			&__button__close {
 				background-color: #e14b3e;
 			}
 			&__button__add-next {
