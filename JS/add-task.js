@@ -27,13 +27,23 @@ let cancelTaskAdditionButton = document.querySelector(
 );
 let taskAdditionState = document.querySelector(".new-task__state .result");
 
-const taskListIsEmpty = () => {
-	if (tasks.length == 0) {
-		let p = document.createElement("p");
-		p.textContent = "Empty List";
-		p.classList.add("tasks-list__empty");
-		p.classList.add("inter-normal");
-		tasksListBox.appendChild(p);
+export const taskListIsEmpty = (tasksArray, text) => {
+	if (tasksArray.length == 0) {
+		let doesExist = document.querySelector(".tasks-list__empty");
+		if (doesExist) {
+			doesExist.textContent = `${text}`;
+		} else {
+			let p = document.createElement("p");
+			p.textContent = `${text}`;
+			p.classList.add("tasks-list__empty");
+			p.classList.add("inter-normal");
+			tasksListBox.appendChild(p);
+		}
+	} else {
+		let emptyListParagraph = document.querySelector(".tasks-list__empty");
+		if (emptyListParagraph) {
+			tasksListBox.removeChild(emptyListParagraph);
+		}
 	}
 };
 const insertTask = (
@@ -41,6 +51,7 @@ const insertTask = (
 	taskDescription,
 	date,
 	important,
+	status,
 	toLocalStorage = true,
 ) => {
 	let tasks = document.querySelectorAll(".tasks-list__element");
@@ -50,7 +61,7 @@ const insertTask = (
 	} else {
 		//-------------------------Adding task to localStorage------------------------
 		if (toLocalStorage) {
-			createTaskObject(taskTitle, taskDescription, date, important);
+			createTaskObject(taskTitle, taskDescription, date, important, status);
 		}
 
 		//-------------------------Task elmement creation-----------------------------
@@ -69,7 +80,14 @@ const insertTask = (
 		p.textContent = taskTitle;
 
 		imgStatus.classList.add("tasks-list__element__status__icon");
-		imgStatus.setAttribute("src", "img/active-task.svg");
+
+		if (status == "in progress") {
+			taskDiv.classList.add("in-progress");
+			imgStatus.setAttribute("src", "img/active-task.svg");
+		} else {
+			taskDiv.classList.add("completed");
+			imgStatus.setAttribute("src", "img/completed.svg");
+		}
 		imgStatus.setAttribute("alt", "Ikonka statusu");
 
 		taskDiv.appendChild(p);
@@ -154,13 +172,14 @@ const setStateAsFillingInfo = () => {
 
 window.addEventListener("load", () => {
 	let tasks = returnTasksFromStorage();
-	if (tasks != null) {
+	if (tasks.length > 0) {
 		for (const task of tasks) {
 			insertTask(
 				task.title,
 				task.description,
 				task.deadline,
 				task.importance,
+				task.status,
 				false,
 			);
 		}
@@ -168,7 +187,7 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-	taskListIsEmpty();
+	taskListIsEmpty(tasks, "Empty list");
 	setDate();
 });
 
@@ -187,7 +206,8 @@ addNewTaskButton.addEventListener("click", () => {
 	let taskDescriptionValue = taskDescription.value;
 	let date = dateInput.value;
 	let important = taskImportance.classList.contains("checked");
-	insertTask(taskTitleValue, taskDescriptionValue, date, important);
+	let status = "in progress";
+	insertTask(taskTitleValue, taskDescriptionValue, date, important, status);
 	clearInputFields();
 });
 

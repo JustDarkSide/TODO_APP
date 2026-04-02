@@ -3,7 +3,20 @@ import {
 	taskManagmentPanelCheck,
 } from "./buttons-and-switchers.js";
 
-import { hideCheckboxes } from "./app.js";
+import {
+	showCheckboxes,
+	hideCheckboxes,
+	showAllSwitches,
+	hideUnnecessarySwitches,
+} from "./app.js";
+
+import { taskListIsEmpty } from "./add-task.js";
+
+import { editTasksStatus } from "./local-storage-manager.js";
+
+let checkTasksButtonMainPanel = document.querySelector(
+	".task-manager.mark-as-completed",
+);
 
 let checkAllButton = document.querySelector(
 	".task-managment-panel.task-managment-panel__checking .task-manager.select-all",
@@ -16,9 +29,117 @@ let checkTasksButton = document.querySelector(
 let exitButton = document.querySelector(
 	".task-managment-panel.task-managment-panel__checking .task-manager.exit",
 );
+let selectedTaskCounterElement = document.querySelector(
+	".selected-tasks-counter",
+);
+
+let tasksInProgress = [];
+
+const hideCompletedTasks = () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+	let tasksInProgress = [];
+	tasks.forEach((task) => {
+		if (task.classList.contains("completed")) {
+			task.style.display = "none";
+		} else {
+			tasksInProgress.push(task);
+		}
+	});
+	return tasksInProgress;
+};
+
+const showAllTasks = () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+
+	tasks.forEach((task) => {
+		if (task.style.display == "none") {
+			task.style.display = "flex";
+		}
+	});
+};
+
+const countSelectedTasks = (tasksInProgress) => {
+	let selectedTaskCounter = 0;
+	for (let task of tasksInProgress) {
+		let checkboxImg = task.lastElementChild.firstElementChild.firstElementChild;
+		if (checkboxImg.classList.contains("checked")) {
+			selectedTaskCounter += 1;
+		}
+	}
+	selectedTaskCounterElement.textContent = `Selected tasks: ${selectedTaskCounter}`;
+	selectedTaskCounterElement.style.padding = "0.5rem 0";
+};
+
+checkTasksButtonMainPanel.addEventListener("click", () => {
+	tasksInProgress = hideCompletedTasks();
+	taskListIsEmpty(tasksInProgress, "Nothing to mark as completed");
+	showCheckboxes(tasksInProgress);
+	let allCheckboxes = document.querySelectorAll(
+		".tasks-list__element__checkbox",
+	);
+	allCheckboxes.forEach((checkbox) => {
+		checkbox.addEventListener("click", () => {
+			checkbox.firstElementChild.firstElementChild.classList.toggle("checked");
+			countSelectedTasks(tasksInProgress);
+		});
+	});
+	//Hides the main task managment panel and shows the one responsible for task checking
+	taskManagmentPanelMain.style.display = "none";
+	taskManagmentPanelCheck.style.display = "flex";
+	//Hides unnecessary switches during task checking procedure
+	hideUnnecessarySwitches();
+});
+
+checkTasksButton.addEventListener("click", () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+	let checkedCheckboxesArray = [];
+	let tasksIndicesArray = [];
+	for (const [index, task] of tasks.entries()) {
+		let checkboxOuterDiv = task.lastElementChild;
+		if (checkboxOuterDiv.classList.contains("tasks-list__element__checkbox")) {
+			let checkboxElement =
+				checkboxOuterDiv.firstElementChild.firstElementChild;
+
+			if (checkboxElement.classList.contains("checked")) {
+				{
+					task.classList.add("completed");
+					tasksIndicesArray.push(index);
+					checkedCheckboxesArray.push(checkboxElement);
+				}
+			}
+		}
+	}
+
+	for (const checkbox of checkedCheckboxesArray) {
+		checkbox.classList.remove("checked");
+	}
+	for (const taskIndex of tasksIndicesArray) {
+		tasks[taskIndex]
+			.querySelector(".tasks-list__element__status")
+			.firstElementChild.setAttribute("src", "img/completed.svg");
+	}
+	editTasksStatus(tasksIndicesArray);
+	tasksInProgress = hideCompletedTasks();
+	countSelectedTasks(tasksInProgress);
+	taskListIsEmpty(tasksInProgress, "Nothing to mark as completed");
+});
 
 exitButton.addEventListener("click", () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
 	taskManagmentPanelCheck.style.display = "none";
 	taskManagmentPanelMain.style.display = "flex";
+	selectedTaskCounterElement.textContent = "";
+	selectedTaskCounterElement.style.padding = 0;
 	hideCheckboxes();
+	taskListIsEmpty(tasks, "Empty list");
+	showAllTasks();
+	showAllSwitches();
+});
+
+checkAllButton.addEventListener("click", () => {
+	for (let task of tasksInProgress) {
+		let checkboxImg = task.lastElementChild.firstElementChild.firstElementChild;
+		checkboxImg.classList.toggle("checked");
+		countSelectedTasks(tasksInProgress);
+	}
 });

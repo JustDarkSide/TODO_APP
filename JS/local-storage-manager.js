@@ -10,16 +10,18 @@ export const createTaskObject = (
 	taskDescription,
 	taskDeadline,
 	taskImportance,
+	status,
 ) => {
 	const task = {
 		title: taskTitle,
 		description: taskDescription,
 		deadline: taskDeadline,
 		importance: taskImportance,
+		status: status,
 	};
 
 	tasks.push(task);
-	loadTasksToStorage(); 
+	loadTasksToStorage();
 };
 
 export const returnTasksFromStorage = () => {
@@ -31,6 +33,14 @@ export const returnTasksFromStorage = () => {
 		return [];
 	}
 };
+
+export const editTasksStatus = (tasksIndices) => {
+	for (const index of tasksIndices) {
+		tasks[index].status = "completed";
+	}
+	loadTasksToStorage(tasks);
+};
+
 window.addEventListener("load", () => {
 	tasks = returnTasksFromStorage();
 });

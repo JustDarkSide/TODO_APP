@@ -1,3 +1,4 @@
+//----------------DEFINING VARIABLES ----------------------
 let importantSwitch = document.querySelector(
 	".task-selector__item__button__important",
 );
@@ -8,15 +9,14 @@ let activeSwitch = document.querySelector(
 let completedSwitch = document.querySelector(
 	".task-selector__item__button__completed",
 );
+
 let allSwitches = [importantSwitch, activeSwitch, completedSwitch];
 
 let addButton = document.querySelector(".task-manager.add-task");
 
-let checkButton = document.querySelector(".task-manager.mark-as-completed");
-
-let removeButton = document.querySelector(".task-manager.remove-task");
-
 let addTaskWindow = document.querySelector(".add-task__window");
+
+export let allCheckboxes = null;
 
 export let taskManagmentPanelMain = document.querySelector(
 	".task-managment-panel__main",
@@ -32,11 +32,13 @@ export let taskManagmentPanelRemoval = document.querySelector(
 export let shadow = document.querySelector(".shadow");
 
 const handleSwitch = (currentSwitch) => {
+	//Enable or disable the switch
 	currentSwitch.classList.toggle("active");
 	currentSwitch.firstElementChild.classList.toggle("moved");
 };
 
 const checkAcivationPermission = (switchList, currentSwitch) => {
+	//Checks if any other switch is active and returns the allowance for activation
 	let allow_for_action = true;
 	switchList.forEach((element) => {
 		if (element.classList.contains("active") && element != currentSwitch) {
@@ -46,6 +48,7 @@ const checkAcivationPermission = (switchList, currentSwitch) => {
 	return allow_for_action;
 };
 const blockOrUnblock = (allSwitches, currentSwitch) => {
+	//Disables the possibility to enable other switches if any of the switches is active
 	if (currentSwitch.classList.contains("active")) {
 		allSwitches.forEach((element) => {
 			element.classList.remove("disabled");
@@ -59,11 +62,13 @@ const blockOrUnblock = (allSwitches, currentSwitch) => {
 	}
 };
 const showAddTaskWindow = () => {
+	//Shows the window for adding task
 	addTaskWindow.classList.add("add-task__window__show");
 	shadow.style.zIndex = 1;
 	shadow.style.opacity = 1;
 };
 export const hideAddTaskWindow = () => {
+	//Hides the task adding window
 	if (addTaskWindow.classList.contains("add-task__window__show")) {
 		shadow.style.opacity = 0;
 		addTaskWindow.classList.remove("add-task__window__show");
@@ -71,24 +76,6 @@ export const hideAddTaskWindow = () => {
 			shadow.style.zIndex = -1;
 		}, 300);
 	}
-};
-
-const showCheckboxes = () => {
-	let tasks = document.querySelectorAll(".tasks-list__element");
-	tasks.forEach((element) => {
-		let outerDiv = document.createElement("div");
-		let innerDiv = document.createElement("div");
-		let img = document.createElement("img");
-		outerDiv.classList.add("tasks-list__element__checkbox");
-		innerDiv.classList.add("tasks-list__element__checkbox__icon-box");
-		img.classList.add("checkmark");
-		img.setAttribute("src", "img/check.svg");
-		img.setAttribute("alt", "");
-
-		innerDiv.appendChild(img);
-		outerDiv.appendChild(innerDiv);
-		element.appendChild(outerDiv);
-	});
 };
 
 importantSwitch.addEventListener("click", (e) => {
@@ -121,16 +108,4 @@ addButton.addEventListener("click", () => {
 
 shadow.addEventListener("click", () => {
 	hideAddTaskWindow();
-});
-
-removeButton.addEventListener("click", () => {
-	showCheckboxes();
-	taskManagmentPanelMain.style.display = "none";
-	taskManagmentPanelRemoval.style.display = "flex";
-});
-
-checkButton.addEventListener("click", () => {
-	showCheckboxes();
-	taskManagmentPanelMain.style.display = "none";
-	taskManagmentPanelCheck.style.display = "flex";
 });

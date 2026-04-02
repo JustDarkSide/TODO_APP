@@ -229,7 +229,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #0b0b13;
-  overflow: hidden;
+  overflow-x: hidden;
   touch-action: none;
 }
 
@@ -376,6 +376,18 @@ main .wrapper .task-selectors__box .task-selector__item__description {
   color: #a1a1aa;
   text-align: center;
 }
+main .wrapper .task-selectors__box .checking {
+  display: none;
+}
+main .wrapper .task-selectors__box .removing {
+  display: none;
+}
+main .wrapper .task-selectors .checking {
+  justify-content: center;
+}
+main .wrapper .task-selectors .removing {
+  justify-content: center;
+}
 main .wrapper .tasks-list {
   width: 90%;
   margin: 0 auto;
@@ -455,6 +467,14 @@ main .wrapper .tasks-list__empty {
   color: #a1a1aa;
   align-content: center;
   font-style: italic;
+}
+main .wrapper .selected-tasks-counter {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem 0;
 }
 main .wrapper .task-managment-panels {
   width: 90%;
