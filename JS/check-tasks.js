@@ -1,6 +1,8 @@
 import {
 	taskManagmentPanelMain,
 	taskManagmentPanelCheck,
+	attachListenerToImportantFilter,
+	removeListenerFromImportantFilter,
 } from "./buttons-and-switchers.js";
 
 import {
@@ -8,9 +10,10 @@ import {
 	hideCheckboxes,
 	showAllSwitches,
 	hideUnnecessarySwitches,
+	deactivateAllSwitches,
 } from "./app.js";
 
-import { taskListIsEmpty } from "./add-task.js";
+import { taskListIsEmpty } from "./app.js";
 
 import { editTasksStatus } from "./local-storage-manager.js";
 
@@ -35,16 +38,17 @@ let selectedTaskCounterElement = document.querySelector(
 
 let tasksInProgress = [];
 
-const hideCompletedTasks = () => {
+const showAllTasksExceptCompleted = () => {
 	let tasks = document.querySelectorAll(".tasks-list__element");
 	let tasksInProgress = [];
-	tasks.forEach((task) => {
-		if (task.classList.contains("completed")) {
-			task.style.display = "none";
-		} else {
+	for (const task of tasks) {
+		if (!task.classList.contains("completed")) {
+			task.style.display = "flex";
 			tasksInProgress.push(task);
+		} else {
+			task.style.display = "none";
 		}
-	});
+	}
 	return tasksInProgress;
 };
 
@@ -71,7 +75,10 @@ const countSelectedTasks = (tasksInProgress) => {
 };
 
 checkTasksButtonMainPanel.addEventListener("click", () => {
-	tasksInProgress = hideCompletedTasks();
+	removeListenerFromImportantFilter();
+	deactivateAllSwitches();
+	tasksInProgress = showAllTasksExceptCompleted();
+	attachListenerToImportantFilter(tasksInProgress);
 	taskListIsEmpty(tasksInProgress, "Nothing to mark as completed");
 	showCheckboxes(tasksInProgress);
 	let allCheckboxes = document.querySelectorAll(
@@ -102,6 +109,7 @@ checkTasksButton.addEventListener("click", () => {
 
 			if (checkboxElement.classList.contains("checked")) {
 				{
+					task.classList.remove("in-progress");
 					task.classList.add("completed");
 					tasksIndicesArray.push(index);
 					checkedCheckboxesArray.push(checkboxElement);
@@ -119,7 +127,7 @@ checkTasksButton.addEventListener("click", () => {
 			.firstElementChild.setAttribute("src", "img/completed.svg");
 	}
 	editTasksStatus(tasksIndicesArray);
-	tasksInProgress = hideCompletedTasks();
+	tasksInProgress = showAllTasksExceptCompleted();
 	countSelectedTasks(tasksInProgress);
 	taskListIsEmpty(tasksInProgress, "Nothing to mark as completed");
 });
@@ -132,8 +140,11 @@ exitButton.addEventListener("click", () => {
 	selectedTaskCounterElement.style.padding = 0;
 	hideCheckboxes();
 	taskListIsEmpty(tasks, "Empty list");
-	showAllTasks();
+	deactivateAllSwitches();
+	removeListenerFromImportantFilter();
+	attachListenerToImportantFilter([]);
 	showAllSwitches();
+	showAllTasks();
 });
 
 checkAllButton.addEventListener("click", () => {

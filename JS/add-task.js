@@ -1,3 +1,4 @@
+import { taskListIsEmpty } from "./app.js";
 import { hideAddTaskWindow, shadow } from "./buttons-and-switchers.js";
 import {
 	createTaskObject,
@@ -27,25 +28,6 @@ let cancelTaskAdditionButton = document.querySelector(
 );
 let taskAdditionState = document.querySelector(".new-task__state .result");
 
-export const taskListIsEmpty = (tasksArray, text) => {
-	if (tasksArray.length == 0) {
-		let doesExist = document.querySelector(".tasks-list__empty");
-		if (doesExist) {
-			doesExist.textContent = `${text}`;
-		} else {
-			let p = document.createElement("p");
-			p.textContent = `${text}`;
-			p.classList.add("tasks-list__empty");
-			p.classList.add("inter-normal");
-			tasksListBox.appendChild(p);
-		}
-	} else {
-		let emptyListParagraph = document.querySelector(".tasks-list__empty");
-		if (emptyListParagraph) {
-			tasksListBox.removeChild(emptyListParagraph);
-		}
-	}
-};
 const insertTask = (
 	taskTitle,
 	taskDescription,

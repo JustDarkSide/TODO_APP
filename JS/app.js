@@ -5,7 +5,20 @@ import "./check-tasks.js";
 import "./delete-tasks.js";
 
 let allSwitchesElements = document.querySelectorAll(".task-selector__item");
+let tasksListBox = document.querySelector(".tasks-list");
 
+export const deactivateAllSwitches = () => {
+	for (const switchElement of allSwitchesElements) {
+		if (switchElement.firstElementChild.classList.contains("active")) {
+			switchElement.firstElementChild.classList.remove("active");
+			switchElement.firstElementChild.firstElementChild.classList.remove(
+				"moved",
+			);
+		} else if (switchElement.firstElementChild.classList.contains("disabled")) {
+			switchElement.firstElementChild.classList.remove("disabled");
+		}
+	}
+};
 export const hideCheckboxes = () => {
 	let tasks = document.querySelectorAll(".tasks-list__element");
 	tasks.forEach((element) => {
@@ -68,4 +81,24 @@ export const showCheckboxes = (tasks) => {
 		outerDiv.appendChild(innerDiv);
 		element.appendChild(outerDiv);
 	});
+};
+
+export const taskListIsEmpty = (tasksArray, text) => {
+	if (tasksArray.length == 0) {
+		let doesExist = document.querySelector(".tasks-list__empty");
+		if (doesExist) {
+			doesExist.textContent = `${text}`;
+		} else {
+			let p = document.createElement("p");
+			p.textContent = `${text}`;
+			p.classList.add("tasks-list__empty");
+			p.classList.add("inter-normal");
+			tasksListBox.appendChild(p);
+		}
+	} else {
+		let emptyListParagraph = document.querySelector(".tasks-list__empty");
+		if (emptyListParagraph) {
+			tasksListBox.removeChild(emptyListParagraph);
+		}
+	}
 };
