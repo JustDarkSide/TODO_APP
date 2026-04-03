@@ -153,8 +153,8 @@ export const hideAddTaskWindow = () => {
 	}
 };
 
-const functionsForImportantFilter = (tasksArray) => {
-	if (tasksArray.length == 0) {
+const functionsForImportantFilter = (tasksArray, sectionName) => {
+	if (sectionName == "main") {
 		let permission = checkAcivationPermission(allSwitches, importantSwitch);
 		if (permission) {
 			tasks = document.querySelectorAll(".tasks-list__element");
@@ -170,9 +170,9 @@ const functionsForImportantFilter = (tasksArray) => {
 	}
 };
 
-export const attachListenerToImportantFilter = (tasksArray) => {
+export const attachListenerToImportantFilter = (tasksArray, sectionName) => {
 	currentImportantSwitchListener = () => {
-		functionsForImportantFilter(tasksArray);
+		functionsForImportantFilter(tasksArray, sectionName);
 	};
 	importantSwitch.addEventListener("click", currentImportantSwitchListener);
 };
@@ -192,7 +192,7 @@ export const removeListenerFromImportantFilter = () => {
 // });
 
 document.addEventListener("DOMContentLoaded", () => {
-	attachListenerToImportantFilter([]);
+	attachListenerToImportantFilter([], "main");
 });
 
 activeSwitch.addEventListener("click", (e) => {
