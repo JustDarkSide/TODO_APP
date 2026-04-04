@@ -13,7 +13,6 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  touch-action: manipulation;
 }
 
 html,
@@ -232,6 +231,9 @@ body {
   flex-direction: column;
   background-color: #0b0b13;
   overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: none;
 }
 
 .elipse {
