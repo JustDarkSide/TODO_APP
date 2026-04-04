@@ -21,7 +21,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 input,
