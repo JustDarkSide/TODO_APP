@@ -5,7 +5,10 @@ import "./check-tasks.js";
 import "./delete-tasks.js";
 
 let allSwitchesElements = document.querySelectorAll(".task-selector__item");
-let tasksListBox = document.querySelector(".tasks-list");
+export let tasksListBox = document.querySelector(".tasks-list");
+export let selectedTaskCounterElement = document.querySelector(
+	".selected-tasks-counter",
+);
 
 export const deactivateAllSwitches = () => {
 	for (const switchElement of allSwitchesElements) {
@@ -101,4 +104,27 @@ export const taskListIsEmpty = (tasksArray, text) => {
 			tasksListBox.removeChild(emptyListParagraph);
 		}
 	}
+};
+
+export const showAndReturnAllTasks = () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+
+	tasks.forEach((task) => {
+		if (task.style.display == "none") {
+			task.style.display = "flex";
+		}
+	});
+	return tasks;
+};
+
+export const countSelectedTasks = (tasksArray) => {
+	let selectedTaskCounter = 0;
+	for (let task of tasksArray) {
+		let checkboxImg = task.lastElementChild.firstElementChild.firstElementChild;
+		if (checkboxImg.classList.contains("checked")) {
+			selectedTaskCounter += 1;
+		}
+	}
+	selectedTaskCounterElement.textContent = `Selected tasks: ${selectedTaskCounter}`;
+	selectedTaskCounterElement.style.padding = "0.5rem 0";
 };

@@ -41,6 +41,14 @@ export const editTasksStatus = (tasksIndices) => {
 	loadTasksToStorage(tasks);
 };
 
+export const removeTasksFromStorage = (tasksIndices) => {
+	tasksIndices.sort((a, b) => b - a);
+	for (const index of tasksIndices) {
+		tasks.splice(index, 1);
+	}
+	loadTasksToStorage();
+};
+
 window.addEventListener("load", () => {
 	tasks = returnTasksFromStorage();
 });

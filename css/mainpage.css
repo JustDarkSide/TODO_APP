@@ -409,13 +409,15 @@ main .wrapper .tasks-list__element {
   max-height: 70px;
   width: 100%;
   margin-bottom: 2rem;
-  background-color: #fff;
   border-radius: 15px;
   background: linear-gradient(90deg, #303059 0%, #6666bf 100%);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  transition: border 0.3s;
 }
 main .wrapper .tasks-list__element__name {
-  flex: 1;
   height: 70px;
+  flex: 1;
   padding-left: 1.5rem;
   font-size: 1.5rem;
   color: #fff;
@@ -463,6 +465,9 @@ main .wrapper .tasks-list__element__checkbox__icon-box img {
 }
 main .wrapper .tasks-list__element__checkbox__icon-box .checked {
   opacity: 1;
+}
+main .wrapper .tasks-list__element:hover {
+  border: 2px solid #fff;
 }
 main .wrapper .tasks-list__empty {
   width: 80%;
@@ -513,4 +518,16 @@ main .wrapper .task-managment-panels .task-managment-panel.task-managment-panel_
 }
 main .wrapper .task-managment-panels .task-managment-panel.task-managment-panel__removing {
   display: none;
+}
+
+@media screen and (min-width: 1200px) {
+  main .wrapper .tasks-list__element {
+    width: 80%;
+    min-height: 110px;
+    max-height: 110px;
+    border: 6px solid transparent;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+  }
 }/*# sourceMappingURL=mainpage.css.map */

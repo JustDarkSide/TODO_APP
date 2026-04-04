@@ -9,8 +9,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: colors.$background-color;
-
-	// max-height: 100vh;
 }
 
 .elipse {
@@ -185,12 +183,15 @@ main {
 				max-height: 70px;
 				width: 100%;
 				margin-bottom: 2rem;
-				background-color: #fff;
 				border-radius: 15px;
 				background: colors.$search-gradient;
+				background-clip: padding-box;
+				border: 2px solid transparent;
+
+				transition: border 0.3s;
 				&__name {
-					flex: 1;
 					height: 70px;
+					flex: 1;
 					padding-left: 1.5rem;
 					font-size: 1.5rem;
 					color: colors.$pure-white;
@@ -242,6 +243,11 @@ main {
 					}
 				}
 			}
+
+			&__element:hover {
+				border: 2px solid colors.$pure-white;
+			}
+
 			&__empty {
 				width: 80%;
 				height: 50%;
@@ -291,6 +297,24 @@ main {
 			}
 			.task-managment-panel.task-managment-panel__removing {
 				display: none;
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	main {
+		.wrapper {
+			.tasks-list {
+				&__element {
+					width: 80%;
+					min-height: 110px;
+					max-height: 110px;
+					border: 6px solid transparent;
+					margin-left: auto;
+					margin-right: auto;
+					cursor: pointer;
+				}
 			}
 		}
 	}
