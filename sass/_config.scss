@@ -9,7 +9,14 @@ html {
 }
 html,
 body {
-	position: relative;
 	max-width: 100%;
 	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	touch-action: none;
+}
+
+input,
+textarea {
+	touch-action: pan-y;
 }

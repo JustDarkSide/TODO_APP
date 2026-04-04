@@ -9,10 +9,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: colors.$background-color;
-	overflow-x: hidden;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-	touch-action: none;
+
 	// max-height: 100vh;
 }
 
