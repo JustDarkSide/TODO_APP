@@ -11,9 +11,14 @@ import {
 	showAllSwitches,
 	hideUnnecessarySwitches,
 	deactivateAllSwitches,
+	showAndReturnAllTasks,
 } from "./app.js";
 
-import { taskListIsEmpty } from "./app.js";
+import {
+	taskListIsEmpty,
+	selectedTaskCounterElement,
+	countSelectedTasks,
+} from "./app.js";
 
 import { editTasksStatus } from "./local-storage-manager.js";
 
@@ -32,9 +37,6 @@ let checkTasksButton = document.querySelector(
 let exitButton = document.querySelector(
 	".task-managment-panel.task-managment-panel__checking .task-manager.exit",
 );
-let selectedTaskCounterElement = document.querySelector(
-	".selected-tasks-counter",
-);
 
 let tasksInProgress = [];
 
@@ -52,31 +54,11 @@ const showAllTasksExceptCompleted = () => {
 	return tasksInProgress;
 };
 
-const showAllTasks = () => {
-	let tasks = document.querySelectorAll(".tasks-list__element");
-
-	tasks.forEach((task) => {
-		if (task.style.display == "none") {
-			task.style.display = "flex";
-		}
-	});
-};
-
-const countSelectedTasks = (tasksInProgress) => {
-	let selectedTaskCounter = 0;
-	for (let task of tasksInProgress) {
-		let checkboxImg = task.lastElementChild.firstElementChild.firstElementChild;
-		if (checkboxImg.classList.contains("checked")) {
-			selectedTaskCounter += 1;
-		}
-	}
-	selectedTaskCounterElement.textContent = `Selected tasks: ${selectedTaskCounter}`;
-	selectedTaskCounterElement.style.padding = "0.5rem 0";
-};
-
 checkTasksButtonMainPanel.addEventListener("click", () => {
-	removeListenerFromImportantFilter();
 	deactivateAllSwitches();
+	//Hides unnecessary switches during task checking procedure
+	hideUnnecessarySwitches();
+	removeListenerFromImportantFilter();
 	tasksInProgress = showAllTasksExceptCompleted();
 	attachListenerToImportantFilter(
 		tasksInProgress,
@@ -97,13 +79,39 @@ checkTasksButtonMainPanel.addEventListener("click", () => {
 	//Hides the main task managment panel and shows the one responsible for task checking
 	taskManagmentPanelMain.style.display = "none";
 	taskManagmentPanelCheck.style.display = "flex";
-	//Hides unnecessary switches during task checking procedure
-	hideUnnecessarySwitches();
+});
+
+checkAllButton.addEventListener("click", () => {
+	let checkedCheckboxes = [];
+	let checkboxesToCheck = [];
+	let allCheckboxes = [];
+	for (let task of tasksInProgress) {
+		let checkboxImg = task.lastElementChild.firstElementChild.firstElementChild;
+		allCheckboxes.push(checkboxImg);
+		if (checkboxImg.classList.contains("checked")) {
+			checkedCheckboxes.push(checkboxImg);
+		} else {
+			checkboxesToCheck.push(checkboxImg);
+		}
+	}
+	if (
+		checkedCheckboxes.length == tasksInProgress.length ||
+		checkedCheckboxes.length == 0
+	) {
+		for (const checkbox of allCheckboxes) {
+			checkbox.classList.toggle("checked");
+		}
+	} else {
+		for (const checkbox of checkboxesToCheck) {
+			checkbox.classList.add("checked");
+		}
+	}
+	countSelectedTasks(tasksInProgress);
 });
 
 checkTasksButton.addEventListener("click", () => {
 	let tasks = document.querySelectorAll(".tasks-list__element");
-	let checkedCheckboxesArray = [];
+	// let checkedCheckboxesArray = [];
 	let tasksIndicesArray = [];
 	for (const [index, task] of tasks.entries()) {
 		let checkboxOuterDiv = task.lastElementChild;
@@ -116,15 +124,15 @@ checkTasksButton.addEventListener("click", () => {
 					task.classList.remove("in-progress");
 					task.classList.add("completed");
 					tasksIndicesArray.push(index);
-					checkedCheckboxesArray.push(checkboxElement);
+					// checkedCheckboxesArray.push(checkboxElement);
 				}
 			}
 		}
 	}
 
-	for (const checkbox of checkedCheckboxesArray) {
-		checkbox.classList.remove("checked");
-	}
+	// for (const checkbox of checkedCheckboxesArray) {
+	// 	checkbox.classList.remove("checked");
+	// }
 	for (const taskIndex of tasksIndicesArray) {
 		tasks[taskIndex]
 			.querySelector(".tasks-list__element__status")
@@ -143,7 +151,6 @@ checkTasksButton.addEventListener("click", () => {
 });
 
 exitButton.addEventListener("click", () => {
-	let tasks = document.querySelectorAll(".tasks-list__element");
 	taskManagmentPanelCheck.style.display = "none";
 	taskManagmentPanelMain.style.display = "flex";
 	selectedTaskCounterElement.textContent = "";
@@ -152,15 +159,7 @@ exitButton.addEventListener("click", () => {
 	deactivateAllSwitches();
 	removeListenerFromImportantFilter();
 	attachListenerToImportantFilter([], "main", "Empty list");
+	let tasks = showAndReturnAllTasks();
 	showAllSwitches();
-	showAllTasks();
 	taskListIsEmpty(tasks, "Empty list");
-});
-
-checkAllButton.addEventListener("click", () => {
-	for (let task of tasksInProgress) {
-		let checkboxImg = task.lastElementChild.firstElementChild.firstElementChild;
-		checkboxImg.classList.toggle("checked");
-		countSelectedTasks(tasksInProgress);
-	}
 });
