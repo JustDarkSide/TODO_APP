@@ -68,7 +68,7 @@ const blockOrUnblock = (allSwitches, currentSwitch) => {
 	}
 };
 
-const handleImportantTasksFilter = (tasksArray) => {
+const handleImportantTasksFilter = (tasksArray, textWhenEmptyArray) => {
 	let tasksToHide = [];
 	if (importantSwitch.classList.contains("active")) {
 		for (const task of tasksArray) {
@@ -85,14 +85,14 @@ const handleImportantTasksFilter = (tasksArray) => {
 			task.style.display = "none";
 		}
 	} else {
-		taskListIsEmpty(tasksArray, "");
+		taskListIsEmpty(tasksArray, textWhenEmptyArray);
 		for (const task of tasksArray) {
 			task.style.display = "flex";
 		}
 	}
 };
 
-const handleActiveTasksFilter = (tasksArray) => {
+const handleActiveTasksFilter = (tasksArray, textWhenEmptyArray) => {
 	let tasksToHide = [];
 	if (activeSwitch.classList.contains("active")) {
 		for (const task of tasksArray) {
@@ -107,14 +107,14 @@ const handleActiveTasksFilter = (tasksArray) => {
 			task.style.display = "none";
 		}
 	} else {
-		taskListIsEmpty(tasksArray, "");
+		taskListIsEmpty(tasksArray, textWhenEmptyArray);
 		for (const task of tasksArray) {
 			task.style.display = "flex";
 		}
 	}
 };
 
-const handleCompletedTasksFilter = (tasksArray) => {
+const handleCompletedTasksFilter = (tasksArray, textWhenEmptyArray) => {
 	let tasksToHide = [];
 	if (completedSwitch.classList.contains("active")) {
 		for (const task of tasksArray) {
@@ -129,7 +129,7 @@ const handleCompletedTasksFilter = (tasksArray) => {
 			task.style.display = "none";
 		}
 	} else {
-		taskListIsEmpty(tasksArray, "");
+		taskListIsEmpty(tasksArray, textWhenEmptyArray);
 		for (const task of tasksArray) {
 			task.style.display = "flex";
 		}
@@ -153,26 +153,34 @@ export const hideAddTaskWindow = () => {
 	}
 };
 
-const functionsForImportantFilter = (tasksArray, sectionName) => {
+const functionsForImportantFilter = (
+	tasksArray,
+	sectionName,
+	textWhenEmptyArray,
+) => {
 	if (sectionName == "main") {
 		let permission = checkAcivationPermission(allSwitches, importantSwitch);
 		if (permission) {
 			tasks = document.querySelectorAll(".tasks-list__element");
 			blockOrUnblock(allSwitches, importantSwitch);
 			handleSwitch(importantSwitch);
-			handleImportantTasksFilter(tasks);
+			handleImportantTasksFilter(tasks, textWhenEmptyArray);
 		}
 	} else {
 		blockOrUnblock(allSwitches, importantSwitch);
 		handleSwitch(importantSwitch);
 
-		handleImportantTasksFilter(tasksArray);
+		handleImportantTasksFilter(tasksArray, textWhenEmptyArray);
 	}
 };
 
-export const attachListenerToImportantFilter = (tasksArray, sectionName) => {
+export const attachListenerToImportantFilter = (
+	tasksArray,
+	sectionName,
+	textWhenEmptyArray,
+) => {
 	currentImportantSwitchListener = () => {
-		functionsForImportantFilter(tasksArray, sectionName);
+		functionsForImportantFilter(tasksArray, sectionName, textWhenEmptyArray);
 	};
 	importantSwitch.addEventListener("click", currentImportantSwitchListener);
 };
@@ -181,18 +189,8 @@ export const removeListenerFromImportantFilter = () => {
 	importantSwitch.removeEventListener("click", currentImportantSwitchListener);
 };
 
-// importantSwitch.addEventListener("click", (e) => {
-// 	if (permission) {
-// 		tasks = document.querySelectorAll(".tasks-list__element");
-// 		blockOrUnblock(allSwitches, e.currentTarget);
-// 		handleSwitch(e.currentTarget);
-
-// 		handleImportantTasksFilterHelperFunction(tasks);
-// 	}
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
-	attachListenerToImportantFilter([], "main");
+	attachListenerToImportantFilter([], "main", "Empty list");
 });
 
 activeSwitch.addEventListener("click", (e) => {
@@ -201,7 +199,7 @@ activeSwitch.addEventListener("click", (e) => {
 		tasks = document.querySelectorAll(".tasks-list__element");
 		blockOrUnblock(allSwitches, e.currentTarget);
 		handleSwitch(e.currentTarget);
-		handleActiveTasksFilter(tasks);
+		handleActiveTasksFilter(tasks, "Empty list");
 	}
 });
 
@@ -211,7 +209,7 @@ completedSwitch.addEventListener("click", (e) => {
 		tasks = document.querySelectorAll(".tasks-list__element");
 		blockOrUnblock(allSwitches, e.currentTarget);
 		handleSwitch(e.currentTarget);
-		handleCompletedTasksFilter(tasks);
+		handleCompletedTasksFilter(tasks, "Empty list");
 	}
 });
 

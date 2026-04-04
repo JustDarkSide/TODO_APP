@@ -78,7 +78,11 @@ checkTasksButtonMainPanel.addEventListener("click", () => {
 	removeListenerFromImportantFilter();
 	deactivateAllSwitches();
 	tasksInProgress = showAllTasksExceptCompleted();
-	attachListenerToImportantFilter(tasksInProgress, "checking");
+	attachListenerToImportantFilter(
+		tasksInProgress,
+		"checking",
+		"Nothing to mark as completed",
+	);
 	taskListIsEmpty(tasksInProgress, "Nothing to mark as completed");
 	showCheckboxes(tasksInProgress);
 	let allCheckboxes = document.querySelectorAll(
@@ -128,9 +132,12 @@ checkTasksButton.addEventListener("click", () => {
 	}
 	editTasksStatus(tasksIndicesArray);
 	tasksInProgress = showAllTasksExceptCompleted();
-	console.log(tasksInProgress);
 	removeListenerFromImportantFilter();
-	attachListenerToImportantFilter(tasksInProgress, "checking");
+	attachListenerToImportantFilter(
+		tasksInProgress,
+		"checking",
+		"Nothing to mark as completed",
+	);
 	countSelectedTasks(tasksInProgress);
 	taskListIsEmpty(tasksInProgress, "Nothing to mark as completed");
 });
@@ -142,12 +149,12 @@ exitButton.addEventListener("click", () => {
 	selectedTaskCounterElement.textContent = "";
 	selectedTaskCounterElement.style.padding = 0;
 	hideCheckboxes();
-	taskListIsEmpty(tasks, "Empty list");
 	deactivateAllSwitches();
 	removeListenerFromImportantFilter();
-	attachListenerToImportantFilter([], "main");
+	attachListenerToImportantFilter([], "main", "Empty list");
 	showAllSwitches();
 	showAllTasks();
+	taskListIsEmpty(tasks, "Empty list");
 });
 
 checkAllButton.addEventListener("click", () => {
