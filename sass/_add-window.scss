@@ -148,7 +148,7 @@
 			align-items: center;
 			border-radius: 15px;
 			margin-bottom: 2rem;
-			cursor: pointer;
+
 			&__button {
 				display: block;
 				width: 30%;
@@ -157,6 +157,7 @@
 				border: none;
 				box-shadow: 0px 0px 6px colors.$glow;
 				background: none;
+				cursor: pointer;
 				.button-label {
 					height: 100%;
 					color: colors.$pure-white;

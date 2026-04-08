@@ -1,5 +1,5 @@
 //----------------IMPORTS -------------------
-import { taskListIsEmpty } from "./app.js";
+import { taskListIsEmpty, addTaskWindow, shadow } from "./mutual.js";
 //----------------DEFINING VARIABLES ----------------------
 let importantSwitch = document.querySelector(
 	".task-selector__item__button__important",
@@ -16,8 +16,6 @@ let allSwitches = [importantSwitch, activeSwitch, completedSwitch];
 
 let addButton = document.querySelector(".task-manager.add-task");
 
-let addTaskWindow = document.querySelector(".add-task__window");
-
 export let allCheckboxes = null;
 
 let tasks = document.querySelectorAll(".tasks-list__element");
@@ -32,8 +30,6 @@ export let taskManagmentPanelCheck = document.querySelector(
 export let taskManagmentPanelRemoval = document.querySelector(
 	".task-managment-panel__removing",
 );
-
-export let shadow = document.querySelector(".shadow");
 
 let currentImportantSwitchListener = null;
 
@@ -142,16 +138,6 @@ const showAddTaskWindow = () => {
 	shadow.style.zIndex = 1;
 	shadow.style.opacity = 1;
 };
-export const hideAddTaskWindow = () => {
-	//Hides the task adding window
-	if (addTaskWindow.classList.contains("add-task__window__show")) {
-		shadow.style.opacity = 0;
-		addTaskWindow.classList.remove("add-task__window__show");
-		setTimeout(() => {
-			shadow.style.zIndex = -1;
-		}, 300);
-	}
-};
 
 const functionsForImportantFilter = (
 	tasksArray,
@@ -215,8 +201,4 @@ completedSwitch.addEventListener("click", (e) => {
 
 addButton.addEventListener("click", () => {
 	showAddTaskWindow();
-});
-
-shadow.addEventListener("click", () => {
-	hideAddTaskWindow();
 });

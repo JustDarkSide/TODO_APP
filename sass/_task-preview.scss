@@ -1,0 +1,100 @@
+@use "./colors" as colors;
+@use "./fonts";
+@use "./config";
+
+.task-preview__window {
+	position: absolute;
+	width: 90vw;
+	height: 80vh;
+	left: -95%;
+	top: 50%;
+	transform: translateY(-50%);
+	background: colors.$search-gradient;
+	border: 2px solid colors.$add-window-borders;
+	box-shadow: 0px 0px 10px 3px colors.$glow;
+	border-radius: 14px;
+	z-index: 2;
+	transition: transform 0.5s;
+	padding: 1rem;
+	.task-preview {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		&__title__label {
+			font-size: 1.8rem;
+			color: colors.$pure-white;
+			padding: 1rem 0;
+			text-align: center;
+		}
+		&__title__value {
+			flex: 1;
+			max-height: 20%;
+			font-size: 2rem;
+			color: colors.$pure-white;
+			text-align: center;
+			padding: 0 0 2rem 0;
+			border-bottom: 1px solid colors.$pure-white;
+			align-content: center;
+			overflow-y: scroll;
+		}
+		&__deadline {
+			font-size: 1.6rem;
+			color: colors.$pure-white;
+			text-align: center;
+			padding: 2rem 0;
+			border-bottom: 1px solid colors.$pure-white;
+		}
+		&__importance {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			border-bottom: 1px solid colors.$pure-white;
+
+			&__label {
+				font-size: 1.6rem;
+				color: colors.$pure-white;
+				text-align: center;
+				padding: 2rem 0;
+			}
+			&__icon {
+				display: block;
+				width: 20px;
+				height: 20px;
+				margin-left: 1rem;
+			}
+		}
+		&__description {
+			font-size: 1.8rem;
+			color: colors.$pure-white;
+			text-align: center;
+			padding: 2rem 0 1rem 0;
+		}
+		&__description__value {
+			flex: 1;
+			font-size: 1.8rem;
+			color: colors.$pure-white;
+			padding: 1rem 1rem;
+			line-height: 1.2;
+			border-bottom: 1px solid colors.$pure-white;
+			overflow-y: scroll;
+		}
+		&__button {
+			display: block;
+			margin: 0 auto;
+			margin-top: 2rem;
+			padding: 2rem 4rem;
+			background: none;
+			background-color: #e14b3e;
+			color: colors.$pure-white;
+			border: none;
+			border-radius: 15px;
+			font-size: 1.4rem;
+			align-content: center;
+		}
+	}
+}
+.task-preview__window__show {
+	transform: translateY(-50%) translateX(111%);
+}

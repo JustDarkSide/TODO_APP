@@ -16,7 +16,7 @@ import {
 	countSelectedTasks,
 	selectedTaskCounterElement,
 	tasksListBox,
-} from "./app.js";
+} from "./mutual.js";
 
 import { removeTasksFromStorage } from "./local-storage-manager.js";
 
@@ -66,8 +66,9 @@ removeButtonMainPanel.addEventListener("click", () => {
 		".tasks-list__element__checkbox",
 	);
 	allCheckboxes.forEach((checkbox) => {
-		checkbox.addEventListener("click", () => {
+		checkbox.addEventListener("click", (e) => {
 			checkbox.firstElementChild.firstElementChild.classList.toggle("checked");
+			e.stopPropagation()
 			countSelectedTasks(completedTasks);
 		});
 	});

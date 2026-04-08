@@ -12,13 +12,10 @@ import {
 	hideUnnecessarySwitches,
 	deactivateAllSwitches,
 	showAndReturnAllTasks,
-} from "./app.js";
-
-import {
 	taskListIsEmpty,
 	selectedTaskCounterElement,
 	countSelectedTasks,
-} from "./app.js";
+} from "./mutual.js";
 
 import { editTasksStatus } from "./local-storage-manager.js";
 
@@ -71,8 +68,9 @@ checkTasksButtonMainPanel.addEventListener("click", () => {
 		".tasks-list__element__checkbox",
 	);
 	allCheckboxes.forEach((checkbox) => {
-		checkbox.addEventListener("click", () => {
+		checkbox.addEventListener("click", (e) => {
 			checkbox.firstElementChild.firstElementChild.classList.toggle("checked");
+			e.stopPropagation();
 			countSelectedTasks(tasksInProgress);
 		});
 	});

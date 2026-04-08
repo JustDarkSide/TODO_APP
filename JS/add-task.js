@@ -1,9 +1,16 @@
-import { taskListIsEmpty } from "./app.js";
-import { hideAddTaskWindow, shadow } from "./buttons-and-switchers.js";
 import {
 	createTaskObject,
 	returnTasksFromStorage,
+	getTaskInfo,
 } from "./local-storage-manager.js";
+
+import {
+	taskListIsEmpty,
+	shadow,
+	addTaskWindow,
+	taskPreviewWindow,
+	taskPreviewImportanceDiv,
+} from "./mutual.js";
 
 let taskTitle = document.querySelector(".new-task .new-task__title__input");
 let taskDescription = document.querySelector(
@@ -28,6 +35,52 @@ let cancelTaskAdditionButton = document.querySelector(
 );
 let taskAdditionState = document.querySelector(".new-task__state .result");
 
+let taskPreviewTitle = document.querySelector(".task-preview__title__value");
+
+let taskPreviewDeadline = document.querySelector(
+	".task-preview__deadline__date",
+);
+
+let taskPreviewImportance = document.querySelector(
+	".task-preview__importance__value",
+);
+
+let taskPreviewDescription = document.querySelector(
+	".task-preview__description__value",
+);
+
+const showPreviewInfo = (task) => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+	const index = Array.from(tasks).indexOf(task);
+	const clickedTaskInfo = getTaskInfo(index);
+	setPreviewInfo(
+		clickedTaskInfo.title,
+		clickedTaskInfo.description,
+		clickedTaskInfo.deadline,
+		clickedTaskInfo.importance,
+	);
+	taskPreviewWindow.classList.add("task-preview__window__show");
+	shadow.style.zIndex = 1;
+	shadow.style.opacity = 1;
+};
+
+const setPreviewInfo = (taskTitle, taskDescription, date, important) => {
+	let date_elements = date.split("-");
+	let proper_date_format = `${date_elements[2]}.${date_elements[1]}.${date_elements[0]}`;
+
+	taskPreviewTitle.textContent = taskTitle;
+	taskPreviewDeadline.textContent = proper_date_format;
+	taskPreviewImportance.textContent = important ? "Important" : "Regular";
+	if (important) {
+		let img = document.createElement("img");
+		img.setAttribute("src", "img/alert-circle.svg");
+		img.setAttribute("alt", "Ikonka mówiąca o tym, że zadanie jest ważne");
+		img.classList.add("task-preview__importance__icon");
+		taskPreviewImportanceDiv.appendChild(img);
+	}
+	taskPreviewDescription.textContent = taskDescription;
+};
+
 const insertTask = (
 	taskTitle,
 	taskDescription,
@@ -50,16 +103,16 @@ const insertTask = (
 		let taskDiv = document.createElement("div");
 		let statusDiv = document.createElement("div");
 		let importanceDiv = null;
-		let p = document.createElement("p");
+		let h3 = document.createElement("h3");
 		let imgStatus = document.createElement("img");
 
 		taskDiv.classList.add("tasks-list__element");
 		statusDiv.classList.add("tasks-list__element__status");
 
-		p.textContent = taskTitle;
-		p.classList.add("tasks-list__element__name");
-		p.classList.add("inter-normal");
-		p.textContent = taskTitle;
+		h3.textContent = taskTitle;
+		h3.classList.add("tasks-list__element__name");
+		h3.classList.add("inter-bold");
+		// p.textContent = taskTitle;
 
 		imgStatus.classList.add("tasks-list__element__status__icon");
 
@@ -72,7 +125,7 @@ const insertTask = (
 		}
 		imgStatus.setAttribute("alt", "Ikonka statusu");
 
-		taskDiv.appendChild(p);
+		taskDiv.appendChild(h3);
 		statusDiv.appendChild(imgStatus);
 
 		if (important) {
@@ -99,11 +152,24 @@ const insertTask = (
 			tasksListBox.removeChild(tasksListBox.firstElementChild);
 		}
 		tasksListBox.appendChild(taskDiv);
-
+		taskDiv.addEventListener("click", (e) => {
+			showPreviewInfo(e.currentTarget);
+		});
 		if (toLocalStorage) {
 			taskAdditionState.textContent = "New task has been created successfully";
 			taskAdditionState.style.color = "lime";
 		}
+	}
+};
+
+const hideAddTaskWindow = () => {
+	//Hides the task adding window
+	if (addTaskWindow.classList.contains("add-task__window__show")) {
+		shadow.style.opacity = 0;
+		addTaskWindow.classList.remove("add-task__window__show");
+		setTimeout(() => {
+			shadow.style.zIndex = -1;
+		}, 300);
 	}
 };
 
@@ -200,11 +266,6 @@ cancelTaskAdditionButton.addEventListener("click", () => {
 	setStateAsFillingInfo();
 });
 
-shadow.addEventListener("click", () => {
-	clearInputFields();
-	setStateAsFillingInfo();
-});
-
 dateInput.addEventListener("change", () => {
 	setStateAsFillingInfo();
 	isDateValid();
@@ -219,4 +280,30 @@ taskDescription.addEventListener("focus", () => {
 
 taskTitle.addEventListener("focus", () => {
 	setStateAsFillingInfo();
+});
+
+shadow.addEventListener("click", () => {
+	if (addTaskWindow.classList.contains("add-task__window__show")) {
+		clearInputFields();
+		setStateAsFillingInfo();
+		hideAddTaskWindow();
+	} else if (
+		taskPreviewWindow.classList.contains("task-preview__window__show")
+	) {
+		shadow.style.opacity = 0;
+		taskPreviewWindow.classList.remove("task-preview__window__show");
+		setTimeout(() => {
+			shadow.style.zIndex = -1;
+		}, 500);
+
+		if (
+			taskPreviewImportanceDiv.lastElementChild.classList.contains(
+				"task-preview__importance__icon",
+			)
+		) {
+			taskPreviewImportanceDiv.removeChild(
+				taskPreviewImportanceDiv.lastElementChild,
+			);
+		}
+	}
 });

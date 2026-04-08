@@ -34,6 +34,10 @@ export const returnTasksFromStorage = () => {
 	}
 };
 
+export const getTaskInfo = (taskIndex) => {
+	return tasks[taskIndex];
+};
+
 export const editTasksStatus = (tasksIndices) => {
 	for (const index of tasksIndices) {
 		tasks[index].status = "completed";

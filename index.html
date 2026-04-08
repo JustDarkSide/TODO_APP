@@ -18,7 +18,7 @@
 	<body>
 		<header>
 			<h1>MyTask</h1>
-			<p>Organize your workflow smarter</p>
+			<h2>Organize your workflow smarter</h2>
 		</header>
 		<main>
 			<div class="wrapper">
@@ -178,11 +178,6 @@
 					>
 						<p class="button-label inter-normal">Close</p>
 					</button>
-					<!-- <button
-						class="new-task__buttons__button new-task__buttons__button__add-next"
-					>
-						<p class="button-label inter-normal">Add next</p>
-					</button> -->
 					<button
 						class="new-task__buttons__button new-task__buttons__button__insert"
 					>
@@ -192,6 +187,34 @@
 				<p class="new-task__state inter-normal">
 					State: <span class="result inter-normal">Filling in information</span>
 				</p>
+			</div>
+		</div>
+
+		<div class="task-preview__window">
+			<div class="task-preview">
+				<p class="task-preview__title__label inter-normal">Title:</p>
+				<h3 class="task-preview__title__value inter-bold">
+					Empty the dishwasher
+				</h3>
+				<p class="task-preview__deadline inter-normal">
+					Deadline:
+					<span class="task-preview__deadline__date inter-normal"></span>
+				</p>
+				<div class="task-preview__importance">
+					<p class="task-preview__importance__label inter-normal">
+						Importance:
+						<span class="task-preview__importance__value inter-normal"></span>
+					</p>
+					<!-- <img
+						src="img/alert-circle.svg"
+						alt="Ikonka mówiąca o tym, że zadanie jest ważne"
+						class="task-preview__importance__icon"
+					/> -->
+				</div>
+
+				<p class="task-preview__description inter-normal">Description:</p>
+				<p class="task-preview__description__value inter-normal"></p>
+				<button class="task-preview__button inter-normal">Close</button>
 			</div>
 		</div>
 
