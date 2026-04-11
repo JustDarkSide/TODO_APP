@@ -14,6 +14,12 @@ export let taskPreviewImportanceDiv = document.querySelector(
 	".task-preview__importance",
 );
 
+export let taskManagmentPanelMain = document.querySelector(
+	".task-managment-panel__main",
+);
+
+export let editTaskWindow = document.querySelector(".edit-task__window");
+
 export const deactivateAllSwitches = () => {
 	for (const switchElement of allSwitchesElements) {
 		if (switchElement.firstElementChild.classList.contains("active")) {
@@ -72,9 +78,9 @@ export const showAllSwitches = () => {
 	}
 };
 
-export const showCheckboxes = (tasks) => {
+export const showCheckboxes = (tasksArray) => {
 	//Creates the checkbox element within the task
-	tasks.forEach((element) => {
+	tasksArray.forEach((element) => {
 		let outerDiv = document.createElement("div");
 		let innerDiv = document.createElement("div");
 		let img = document.createElement("img");
@@ -131,4 +137,47 @@ export const countSelectedTasks = (tasksArray) => {
 	}
 	selectedTaskCounterElement.textContent = `Selected tasks: ${selectedTaskCounter}`;
 	selectedTaskCounterElement.style.padding = "0.5rem 0";
+};
+
+export const showAllTasksExceptCompleted = () => {
+	let tasks = document.querySelectorAll(".tasks-list__element");
+	let tasksInProgress = [];
+	for (const task of tasks) {
+		if (!task.classList.contains("completed")) {
+			task.style.display = "flex";
+			tasksInProgress.push(task);
+		} else {
+			task.style.display = "none";
+		}
+	}
+	return tasksInProgress;
+};
+
+export const setDate = (dateInput) => {
+	const now = new Date();
+	const offset = now.getTimezoneOffset() * 60000;
+	const localISODate = new Date(now - offset).toISOString().split("T")[0];
+	dateInput.value = localISODate;
+	dateInput.setAttribute("min", localISODate);
+};
+
+export const isDateValid = (dateInput) => {
+	let isValid = true;
+	const now = new Date();
+	const offset = now.getTimezoneOffset() * 60000;
+	const localISODate = new Date(now - offset).toISOString().split("T")[0];
+	const selectedDate = dateInput.value;
+	if (selectedDate < localISODate && selectedDate !== "") {
+		alert("Error: You cannot select a date in the past.");
+		dateInput.value = localISODate;
+		isValid = false;
+	}
+	return isValid;
+};
+
+export const setMinimumDate = (dateInput) => {
+	const now = new Date();
+	const offset = now.getTimezoneOffset() * 60000;
+	const localISODate = new Date(now - offset).toISOString().split("T")[0];
+	dateInput.setAttribute("min", localISODate);
 };

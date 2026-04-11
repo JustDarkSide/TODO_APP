@@ -45,6 +45,21 @@ export const editTasksStatus = (tasksIndices) => {
 	loadTasksToStorage(tasks);
 };
 
+export const editTaskInfo = (
+	taskIndex,
+	taskTitle,
+	taskDescription,
+	taskDeadline,
+	taskImportance,
+) => {
+	tasks[taskIndex].title = taskTitle;
+	tasks[taskIndex].description = taskDescription;
+	tasks[taskIndex].deadline = taskDeadline;
+	tasks[taskIndex].importance = taskImportance;
+
+	loadTasksToStorage(tasks);
+};
+
 export const removeTasksFromStorage = (tasksIndices) => {
 	tasksIndices.sort((a, b) => b - a);
 	for (const index of tasksIndices) {

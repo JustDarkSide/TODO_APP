@@ -10,6 +10,9 @@ import {
 	addTaskWindow,
 	taskPreviewWindow,
 	taskPreviewImportanceDiv,
+	setDate,
+	isDateValid,
+	editTaskWindow,
 } from "./mutual.js";
 
 let taskTitle = document.querySelector(".new-task .new-task__title__input");
@@ -26,6 +29,10 @@ let tasks = document.querySelectorAll(".tasks-list__element");
 let newTaskCheckbox = document.querySelector(
 	".new-task__metadata__importance__checkbox",
 );
+let addButtonMainPanel = document.querySelector(
+	".task-managment-panel.task-managment-panel__main .task-manager.add-task",
+);
+
 let addNewTaskButton = document.querySelector(
 	".new-task__buttons__button.new-task__buttons__button__insert",
 );
@@ -162,6 +169,13 @@ const insertTask = (
 	}
 };
 
+const showAddTaskWindow = () => {
+	//Shows the window for adding task
+	addTaskWindow.classList.add("add-task__window__show");
+	shadow.style.zIndex = 1;
+	shadow.style.opacity = 1;
+};
+
 const hideAddTaskWindow = () => {
 	//Hides the task adding window
 	if (addTaskWindow.classList.contains("add-task__window__show")) {
@@ -171,28 +185,6 @@ const hideAddTaskWindow = () => {
 			shadow.style.zIndex = -1;
 		}, 300);
 	}
-};
-
-const setDate = () => {
-	const now = new Date();
-	const offset = now.getTimezoneOffset() * 60000;
-	const localISODate = new Date(now - offset).toISOString().split("T")[0];
-	dateInput.value = localISODate;
-	dateInput.setAttribute("min", localISODate);
-};
-
-const isDateValid = () => {
-	let isValid = true;
-	const now = new Date();
-	const offset = now.getTimezoneOffset() * 60000;
-	const localISODate = new Date(now - offset).toISOString().split("T")[0];
-	const selectedDate = dateInput.value;
-	if (selectedDate < localISODate && selectedDate !== "") {
-		alert("Error: You cannot select a date in the past.");
-		dateInput.value = localISODate;
-		isValid = false;
-	}
-	return isValid;
 };
 
 const clearInputFields = () => {
@@ -208,7 +200,7 @@ const clearInputFields = () => {
 	taskDescription.value = "";
 	taskImportance.classList.remove("checked");
 	newTaskCheckbox.firstElementChild.style.display = "none";
-	setDate();
+	setDate(dateInput);
 };
 
 const setStateAsFillingInfo = () => {
@@ -236,7 +228,11 @@ window.addEventListener("load", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 	taskListIsEmpty(tasks, "Empty list");
-	setDate();
+	setDate(dateInput);
+});
+
+addButtonMainPanel.addEventListener("click", () => {
+	showAddTaskWindow();
 });
 
 newTaskCheckbox.addEventListener("click", () => {
@@ -268,7 +264,7 @@ cancelTaskAdditionButton.addEventListener("click", () => {
 
 dateInput.addEventListener("change", () => {
 	setStateAsFillingInfo();
-	isDateValid();
+	isDateValid(dateInput);
 });
 dateInput.addEventListener("focus", () => {
 	setStateAsFillingInfo();
@@ -282,6 +278,7 @@ taskTitle.addEventListener("focus", () => {
 	setStateAsFillingInfo();
 });
 
+//This event listener handles clicking outside many of the windows (clicking in shadow element). This is an exception from the rule of putting event listeners in proper files depending on the section/window
 shadow.addEventListener("click", () => {
 	if (addTaskWindow.classList.contains("add-task__window__show")) {
 		clearInputFields();
@@ -305,5 +302,11 @@ shadow.addEventListener("click", () => {
 				taskPreviewImportanceDiv.lastElementChild,
 			);
 		}
+	} else if (editTaskWindow.classList.contains("edit-task__window__show")) {
+		shadow.style.opacity = 0;
+		editTaskWindow.classList.remove("edit-task__window__show");
+		setTimeout(() => {
+			shadow.style.zIndex = -1;
+		}, 500);
 	}
 });

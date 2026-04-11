@@ -1,11 +1,10 @@
 import {
-	taskManagmentPanelMain,
-	taskManagmentPanelRemoval,
 	attachListenerToImportantFilter,
 	removeListenerFromImportantFilter,
-} from "./buttons-and-switchers.js";
+} from "./switches.js";
 
 import {
+	taskManagmentPanelMain,
 	showCheckboxes,
 	hideCheckboxes,
 	showAllSwitches,
@@ -20,7 +19,13 @@ import {
 
 import { removeTasksFromStorage } from "./local-storage-manager.js";
 
-let removeButtonMainPanel = document.querySelector(".task-manager.remove-task");
+let taskManagmentPanelRemoval = document.querySelector(
+	".task-managment-panel__removing",
+);
+
+let removeButtonMainPanel = document.querySelector(
+	".task-managment-panel.task-managment-panel__main .task-manager.remove-task",
+);
 
 let selectAllButton = document.querySelector(
 	".task-managment-panel.task-managment-panel__removing .task-manager.select-all",
@@ -68,7 +73,7 @@ removeButtonMainPanel.addEventListener("click", () => {
 	allCheckboxes.forEach((checkbox) => {
 		checkbox.addEventListener("click", (e) => {
 			checkbox.firstElementChild.firstElementChild.classList.toggle("checked");
-			e.stopPropagation()
+			e.stopPropagation();
 			countSelectedTasks(completedTasks);
 		});
 	});

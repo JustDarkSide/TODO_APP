@@ -1,11 +1,10 @@
 import {
-	taskManagmentPanelMain,
-	taskManagmentPanelCheck,
 	attachListenerToImportantFilter,
 	removeListenerFromImportantFilter,
-} from "./buttons-and-switchers.js";
+} from "./switches.js";
 
 import {
+	taskManagmentPanelMain,
 	showCheckboxes,
 	hideCheckboxes,
 	showAllSwitches,
@@ -15,12 +14,17 @@ import {
 	taskListIsEmpty,
 	selectedTaskCounterElement,
 	countSelectedTasks,
+	showAllTasksExceptCompleted,
 } from "./mutual.js";
 
 import { editTasksStatus } from "./local-storage-manager.js";
 
+let taskManagmentPanelCheck = document.querySelector(
+	".task-managment-panel__checking",
+);
+
 let checkTasksButtonMainPanel = document.querySelector(
-	".task-manager.mark-as-completed",
+	".task-managment-panel.task-managment-panel__main .task-manager.mark-as-completed",
 );
 
 let checkAllButton = document.querySelector(
@@ -36,20 +40,6 @@ let exitButton = document.querySelector(
 );
 
 let tasksInProgress = [];
-
-const showAllTasksExceptCompleted = () => {
-	let tasks = document.querySelectorAll(".tasks-list__element");
-	let tasksInProgress = [];
-	for (const task of tasks) {
-		if (!task.classList.contains("completed")) {
-			task.style.display = "flex";
-			tasksInProgress.push(task);
-		} else {
-			task.style.display = "none";
-		}
-	}
-	return tasksInProgress;
-};
 
 checkTasksButtonMainPanel.addEventListener("click", () => {
 	deactivateAllSwitches();

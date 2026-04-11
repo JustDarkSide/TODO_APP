@@ -14,22 +14,11 @@ let completedSwitch = document.querySelector(
 
 let allSwitches = [importantSwitch, activeSwitch, completedSwitch];
 
-let addButton = document.querySelector(".task-manager.add-task");
 
 export let allCheckboxes = null;
 
 let tasks = document.querySelectorAll(".tasks-list__element");
 
-export let taskManagmentPanelMain = document.querySelector(
-	".task-managment-panel__main",
-);
-export let taskManagmentPanelCheck = document.querySelector(
-	".task-managment-panel__checking",
-);
-
-export let taskManagmentPanelRemoval = document.querySelector(
-	".task-managment-panel__removing",
-);
 
 let currentImportantSwitchListener = null;
 
@@ -132,12 +121,7 @@ const handleCompletedTasksFilter = (tasksArray, textWhenEmptyArray) => {
 	}
 };
 
-const showAddTaskWindow = () => {
-	//Shows the window for adding task
-	addTaskWindow.classList.add("add-task__window__show");
-	shadow.style.zIndex = 1;
-	shadow.style.opacity = 1;
-};
+
 
 const functionsForImportantFilter = (
 	tasksArray,
@@ -153,9 +137,7 @@ const functionsForImportantFilter = (
 			handleImportantTasksFilter(tasks, textWhenEmptyArray);
 		}
 	} else {
-		blockOrUnblock(allSwitches, importantSwitch);
 		handleSwitch(importantSwitch);
-
 		handleImportantTasksFilter(tasksArray, textWhenEmptyArray);
 	}
 };
@@ -199,6 +181,4 @@ completedSwitch.addEventListener("click", (e) => {
 	}
 });
 
-addButton.addEventListener("click", () => {
-	showAddTaskWindow();
-});
+

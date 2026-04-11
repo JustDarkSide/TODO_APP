@@ -26,7 +26,6 @@
 					<input
 						type="text"
 						class="search-bar__input inter-normal"
-						,
 						placeholder="Search for tasks"
 					/>
 				</div>
@@ -109,25 +108,43 @@
 
 					<div class="task-managment-panel task-managment-panel__checking">
 						<button class="task-manager select-all">
-							<img src="img/select-all-to-check.svg" alt="" />
+							<img
+								src="img/select-all-to-check.svg"
+								alt="Ikonka zaznaczenia wielu zadań"
+							/>
 						</button>
 						<button class="task-manager check-tasks">
-							<img src="img/check-save.svg" alt="" />
+							<img src="img/check-save.svg" alt="Ikonka zapisu wyboru " />
 						</button>
 						<button class="task-manager exit">
-							<img src="img/exit.svg" alt="" />
+							<img src="img/exit.svg" alt="Ikonka wyjścia" />
 						</button>
 					</div>
 
 					<div class="task-managment-panel task-managment-panel__removing">
 						<button class="task-manager select-all">
-							<img src="img/select-all-for-removal.svg" alt="" />
+							<img
+								src="img/select-all-for-removal.svg"
+								alt="Ikonka zaznaczenia wielu zadań "
+							/>
 						</button>
 						<button class="task-manager remove-tasks">
-							<img src="img/trash-bin.svg" alt="" />
+							<img src="img/trash-bin.svg" alt="Ikonka usunięcia zadań" />
 						</button>
 						<button class="task-manager exit">
-							<img src="img/exit.svg" alt="" />
+							<img src="img/exit.svg" alt="Ikonka wyjścia" />
+						</button>
+					</div>
+
+					<div class="task-managment-panel task-managment-panel__editing">
+						<button class="task-manager start-editing">
+							<img
+								src="img/start-editing.svg"
+								alt="Ikonka rozpoczęcia edycji"
+							/>
+						</button>
+						<button class="task-manager exit">
+							<img src="img/exit.svg" alt="Ikonka wyjścia" />
 						</button>
 					</div>
 				</div>
@@ -145,6 +162,7 @@
 					<input
 						type="text"
 						name="title"
+						id="title"
 						placeholder="Enter task title"
 						class="new-task__title__input inter-normal"
 					/>
@@ -193,9 +211,7 @@
 		<div class="task-preview__window">
 			<div class="task-preview">
 				<p class="task-preview__title__label inter-normal">Title:</p>
-				<h3 class="task-preview__title__value inter-bold">
-					Empty the dishwasher
-				</h3>
+				<h3 class="task-preview__title__value inter-bold"></h3>
 				<p class="task-preview__deadline inter-normal">
 					Deadline:
 					<span class="task-preview__deadline__date inter-normal"></span>
@@ -205,16 +221,62 @@
 						Importance:
 						<span class="task-preview__importance__value inter-normal"></span>
 					</p>
-					<!-- <img
-						src="img/alert-circle.svg"
-						alt="Ikonka mówiąca o tym, że zadanie jest ważne"
-						class="task-preview__importance__icon"
-					/> -->
 				</div>
 
 				<p class="task-preview__description inter-normal">Description:</p>
 				<p class="task-preview__description__value inter-normal"></p>
 				<button class="task-preview__button inter-normal">Close</button>
+			</div>
+		</div>
+
+		<div class="edit-task__window">
+			<div class="edit-task">
+				<div class="edit-task__title">
+					<label for="edit-title" class="edit-task__title__label inter-normal"
+						>Task title</label
+					>
+					<input
+						type="text"
+						id="edit-title"
+						class="edit-task__title__input inter-normal"
+					/>
+				</div>
+				<div class="edit-task__deadline">
+					<label for="edit-date" class="edit-task__deadline__label inter-normal"
+						>Deadline:</label
+					>
+					<input
+						type="date"
+						id="edit-date"
+						class="edit-task__deadline__input inter-normal"
+					/>
+				</div>
+				<div class="edit-task__importance">
+					<p class="edit-task__importance__label inter-normal">IMPORTANT?</p>
+					<div class="edit-task__importance__checkbox">
+						<img
+							src="img/check.svg"
+							alt="Ikonka zaznaczenia"
+							class="edit-task__importance__checkbox__icon"
+						/>
+					</div>
+				</div>
+				<div class="edit-task__description">
+					<label
+						for="edit-description"
+						class="edit-task__description__label inter-normal"
+						>Description:</label
+					>
+					<textarea
+						id="edit-description"
+						class="edit-task__description__textarea inter-normal"
+					></textarea>
+				</div>
+
+				<div class="edit-task__buttons">
+					<button class="edit-task__button cancel">Cancel</button>
+					<button class="edit-task__button save-changes">Save changes</button>
+				</div>
 			</div>
 		</div>
 

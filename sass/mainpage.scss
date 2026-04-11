@@ -3,6 +3,7 @@
 @use "./config";
 @use "./add-window";
 @use "./task-preview";
+@use "./edit-task-window";
 
 body {
 	position: relative;
@@ -188,8 +189,9 @@ main {
 				background: colors.$search-gradient;
 				background-clip: padding-box;
 				border: 2px solid transparent;
-
-				transition: border 0.3s;
+				transition:
+					border 0.3s,
+					opacity 0.3s;
 				&__name {
 					height: 70px;
 					flex: 1;
@@ -248,7 +250,10 @@ main {
 			&__element:hover {
 				border: 2px solid colors.$pure-white;
 			}
-
+			.disabled {
+				opacity: 0.4;
+				pointer-events: none;
+			}
 			&__empty {
 				width: 80%;
 				height: 50%;
@@ -298,6 +303,10 @@ main {
 			}
 			.task-managment-panel.task-managment-panel__removing {
 				display: none;
+			}
+			.task-managment-panel.task-managment-panel__editing {
+				display: none;
+				justify-content: space-around;
 			}
 		}
 	}

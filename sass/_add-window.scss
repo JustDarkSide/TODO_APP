@@ -40,7 +40,7 @@
 				border-radius: 15px;
 				border: 2px solid colors.$add-window-borders;
 				font-size: 2rem;
-				background-color: colors.$add-window-input-background;
+				background-color: colors.$input-background;
 				color: colors.$pure-white;
 				overflow: hidden;
 			}
@@ -101,7 +101,7 @@
 					padding: 1.5rem 0.5rem;
 					text-align: center;
 					color: colors.$pure-white;
-					background-color: colors.$add-window-input-background;
+					background-color: colors.$input-background;
 					border-radius: 15px;
 					border: none;
 					overflow: hidden;
@@ -128,7 +128,7 @@
 				width: 100%;
 				height: 100%;
 				padding: 1.5rem 1.5rem;
-				background: colors.$add-window-input-background;
+				background: colors.$input-background;
 				border: 2px solid colors.$add-window-borders;
 				border-radius: 15px;
 				font-size: 2rem;
