@@ -208,6 +208,7 @@ main {
 					padding: 0 1rem;
 					height: 70px;
 					align-content: center;
+					// vertical-align: middle;
 					&__icon {
 						display: block;
 						width: 25px;
@@ -326,10 +327,10 @@ main {
 	}
 	main {
 		.wrapper {
-			.task-selectors{
-				&__box{
-					.task-selector__item{
-						&__description{
+			.task-selectors {
+				&__box {
+					.task-selector__item {
+						&__description {
 							font-size: 1.8rem;
 							margin-top: 0.5rem;
 						}
@@ -347,6 +348,13 @@ main {
 						font-size: 2rem;
 					}
 					&__status {
+						height: 100px;
+					}
+					&__importance {
+						height: 100px;
+					}
+
+					&__checkbox {
 						height: 100px;
 					}
 				}
@@ -379,7 +387,14 @@ main {
 					&__status {
 						height: 120px;
 					}
+					&__importance{
+						height: 120px;
+					}
+					&__checkbox{
+						height: 120px;
+					}
 				}
+
 			}
 			.task-managment-panels {
 				.task-managment-panel {
@@ -425,6 +440,12 @@ main {
 						line-height: 140px;
 					}
 					&__status {
+						height: 140px;
+					}
+					&__importance{
+						height: 140px;
+					}
+					&__checkbox{
 						height: 140px;
 					}
 				}
