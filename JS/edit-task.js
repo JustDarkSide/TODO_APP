@@ -182,13 +182,14 @@ exitButton.addEventListener("click", () => {
 	deactivateAllSwitches();
 	removeListenerFromImportantFilter();
 	attachListenerToImportantFilter([], "main", "Empty list");
-	showAndReturnAllTasks();
+	let tasks = showAndReturnAllTasks();
 	for (const task of tasksToEdit) {
 		if (task.classList.contains("disabled")) {
 			task.classList.remove("disabled");
 		}
 	}
 	showAllSwitches();
+	taskListIsEmpty(tasks, "Empty list");
 	taskManagmentPanelEdit.style.display = "none";
 	taskManagmentPanelMain.style.display = "flex";
 });

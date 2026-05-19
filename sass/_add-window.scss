@@ -205,3 +205,19 @@
 		}
 	}
 }
+
+@media screen and (min-width: 768px){
+	.add-task__window{
+		height: 60vh;
+	}
+}
+
+@media screen and (min-width: 1200px){
+	.add-task__window{
+		width: 80%;
+		height: 65vh;
+	}
+	.add-task__window__show{
+		transform: translateX(-122.5%) translateY(-50%);
+	}
+}
