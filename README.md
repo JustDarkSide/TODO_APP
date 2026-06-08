@@ -4,12 +4,12 @@ W tym repozytorium znajdują się wszystkie pliki potrzebne do przedstawienia pr
 
 ## Dokumentacja
 
-Pliki dokumentacji zarówno w formacie .md, jak i .pdf znajduą się w folderze `docs`
+Folder [docs/](docs/) zawiera pliki dokumentacji zarówno w formacie \*.md, jak i \*.pdf.
 
 
 ## Makiety Low-Fidelity 
 
-Wszystkie makiety Low-Fidelity znajdują się w folderze `frame0`, a nazwa pliku sugeruje czy jest to design na urządzenia mobilne, czy komputery
+Folder [frame0/](frame0/) zawiera wszystkie makiety Low-Fidelity. Nazwa pliku sugeruje czy jest to design na urządzenia mobilne, czy komputery.
 
 
 ## Implementacja frontendowa
@@ -25,5 +25,6 @@ Plik `index.html` jest głownym plikiem implementacji frontendowej. Korzysta on 
 ![HTML](https://img.shields.io/badge/HTML%205-orange?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS%203-royalblue?style=for-the-badge&logo=css&logoColor=white)
 ![JS](https://img.shields.io/badge/JS%20%28Vanilla%29-yellow?style=for-the-badge&logo=javascript&logoColor=black)
+![Frame0](https://img.shields.io/badge/Frame0-1.6.0-red?style=for-the-badge)
 
 ![Project Status](https://img.shields.io/badge/Project%20Status-Completed-brightgreen?style=for-the-badge)

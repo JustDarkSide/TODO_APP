@@ -2,13 +2,13 @@
 ## Analiza potrzeb i problemów
 Projektowana aplikacja ma na celu rozwiązanie kluczowych problemów, z którymi borykają się użytkownicy w zakresie organizacji czasu i zadań:
 
-- **Rozproszenie informacji**: Użytkownicy często przechowują listę zadań w wielu miejscach (notatki, maile, pamięć), co prowadzi do przeoczenia ważnych terminów.
+- **Rozproszenie informacji**: Użytkownicy często przechowują listę zadań \mbox{w wielu} miejscach (notatki, maile, pamięć), co prowadzi do przeoczenia ważnych terminów.
 - **Trudność w priorytetyzacji**: Brak jasnego rozróżnienia między zadaniami pilnymi a tymi, które mogą zostać wykonane później.
 - **Przeładowanie funkcjonalne**: Istniejące narzędzia często są zbyt skomplikowane, co zniechęca do ich systematycznego używania. Nasza aplikacja stawia na prostotę i intuicyjność.
 
 ## Persony Użytkowników
 ### Persona 1: Zorganizowany Student
-Persona jest studentem informatyki, dorabiającym jako freelancer. Ma napięty grafik, wykonuje zadania w związku ze swoją edukacją. Żongluje terminami uczelnianymi oraz projektami dla klientów. Jest umysłem ścisłym, wykonuje zadania indywidualne oraz grupowe. Dysponuje wieczorami kilkoma godzinami wolnego czasu dziennie. Preferuje korzystać z laptopa osobistego oraz komputera stacjonarnego w pracy.
+Persona jest studentem informatyki, dorabiającym jako freelancer. Ma napięty grafik, wykonuje zadania \mbox{w związku} ze swoją edukacją. Żongluje terminami uczelnianymi oraz projektami dla klientów. Jest umysłem ścisłym, wykonuje zadania indywidualne oraz grupowe. Dysponuje wieczorami kilkoma godzinami wolnego czasu dziennie. Preferuje korzystać z laptopa osobistego oraz komputera stacjonarnego w pracy.
 
 Potrzeby:
 

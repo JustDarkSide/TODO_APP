@@ -1,13 +1,13 @@
 ---
 lang: pl-PL
-title: "Dokumentacja Projektu"
+title: "Dokumentacja projektu"
 subtitle: "Aplikacja zarządzania zadaniami MyTask"
 author:
     - "Mateusz Waszyński"
     - "Yevhen Sychov"
     - "Damian Włodarczyk"
     - "Kacper Zając"
-date: "2026-05-23"
+date: "2026-06-13"
 geometry: margin=2cm
 mainfont: "DejaVu Sans"
 sansfont: "DejaVu Sans"
@@ -18,6 +18,11 @@ linkcolor: blue
 header-includes:
     - \usepackage{graphicx}
     - \usepackage{enumitem}
+    - \usepackage[T1]{fontenc}
+    - \usepackage{booktabs}
+    - \usepackage{float}
+    - \renewcommand*\familydefault{\sfdefault}
+#    - \usepackage{dejavu}
 #    - \usepackage{column}
 ---
 
